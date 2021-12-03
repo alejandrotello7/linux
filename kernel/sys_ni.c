@@ -192,6 +192,9 @@ COND_SYSCALL(getgroups);
 /* fastcall/fastcall.c */
 COND_SYSCALL(fastcall);
 
+/* summer/summer.c */
+COND_SYSCALL(summer);
+
 /* ipc/mqueue.c */
 COND_SYSCALL(mq_open);
 COND_SYSCALL_COMPAT(mq_open);

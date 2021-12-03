@@ -29,6 +29,7 @@ const void fce_functions_end(void);
 const void fce_array(void);
 const void fce_array_nt(void);
 const void fce_mwait(void);
+const void fce_sum(void);
 
 /*
  * FCE_FUNCTIONS_SIZE - size of the fastcall function text segment in bytes
@@ -158,6 +159,44 @@ fail_create:
 	__free_page(page);
 fail_alloc:
 	return ret;
+}
+
+/*
+ * private_example - example for the use of private memory regions for a fastcall		
+ */
+		
+static long private_example_sum(unsigned long args)
+		
+{		
+	unsigned long addr;
+	struct page *page;
+	long ret = -ENOMEM;	
+	struct fastcall_reg_args reg_args = args_for(fce_sum);
+		
+	page = alloc_page(GFP_FASTCALL);
+	if (!page)
+		goto fail_alloc;
+		
+
+	addr = create_additional_mapping(&page, 1, FASTCALL_VM_RW, false);
+	ret = (long)addr;
+	if (IS_ERR_VALUE(addr))
+		goto fail_create;
+
+		
+	reg_args.ops = &single_fn_ops;
+	reg_args.priv = (void *)addr;
+	reg_args.attribs[0] = addr;
+	ret = register_and_copy(reg_args, args);
+		
+	if (ret < 0)
+		remove_additional_mapping(addr);
+		
+fail_create:
+	__free_page(page);
+fail_alloc:
+	return ret;
+		
 }
 
 static void array_unmap(void *priv)
@@ -360,6 +399,11 @@ static long fce_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 		    !boot_cpu_has_bug(X86_BUG_MONITOR) &&
 		    boot_cpu_has(X86_FEATURE_ARAT))
 			ret = mwait_example(args);
+	case FCE_IOCTL_NONE:
+		printk("Success\n");
+		ret = 0;
+	case FCE_IOCTL_SUM:
+		ret = private_example_sum(args);
 		break;
 	}
 

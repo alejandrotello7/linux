@@ -866,8 +866,9 @@ __SC_COMP(__NR_epoll_pwait2, sys_epoll_pwait2, compat_sys_epoll_pwait2)
 #define __NR_fastcall NR_fastcall
 __SYSCALL(__NR_fastcall, sys_fastcall);
 
-#undef __NR_syscalls
-#define __NR_syscalls 443
+#define __NR_summer 443
+__SYSCALL(__NR_summer, sys_summer);
+
 
 /*
  * 32 bit systems traditionally used different

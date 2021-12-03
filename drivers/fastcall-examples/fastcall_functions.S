@@ -73,6 +73,27 @@ SYM_CODE_START(fce_write_ptr)
 	sysretq
 SYM_CODE_END(fce_write_ptr)
 
+/*	
+ * fce_sum - sysret with the sum of argument1 and argument2	
+ *	
+ * Reads from the address stored in the first and second entry attribute.		
+ */
+		
+SYM_CODE_START(fce_sum)
+	UNWIND_HINT_EMPTY
+		
+	
+	movq SARG0(%rax), %rdi
+	movq ARG1, (%rdi)
+	movq (%rdi), %rax
+	movq ARG2, (%rdi)
+	movq (%rdi), %rdi
+	addq %rdi, %rax
+		
+	sysretq
+SYM_CODE_END(fce_sum)
+
+
 /*
  * fce_array - copy data from the shared memroy region
  *
