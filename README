@@ -3,16 +3,7 @@ Linux kernel
 
 Fastcall-Provider-Tester
 ------------------------
-Development branch for fastcall provider 
-
-Fastcall
---------
-
-The fastcall architecture is implemented in arch/x86/fastcall .
-An example driver is located at drivers/fastcall-examples .
-Have a look at Documentation/fastcall/Template.md before creating a new
-driver.
-
+Development branch for fastcall provider
 
 General
 -------
