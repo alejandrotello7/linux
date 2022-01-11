@@ -26,7 +26,7 @@ int main(void){
 	}
 
 	if(close(fd)){
-		perror("close failed")l
+		perror("close failed");
 		return -1;
 	}
 	return 0;
