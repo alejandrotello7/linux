@@ -82,7 +82,7 @@ static int __init fcp_init(void)
 	fcp_cdev->ops = &fops;
 
 	//Add character device to the kernel
-	result = cdev_add(fcp_cdev, fcp_dev, MAX_MINOR_DEVICES);
+	result = cdev_add(fcp_cdev, MKDEV(dev_major,0), MAX_MINOR_DEVICES);
 	if(result < 0 ){
 		pr_warn("fcp: can't add character device");
 		cdev_del(fcp_cdev);
@@ -96,8 +96,8 @@ static int __init fcp_init(void)
 	}
 
 	//Create fastcall provider device and link it in /dev/ directory
-	fcp_device = device_create(fcp_class, NULL, fcp_dev, NULL,
-				   FCP_DEVICE_NAME);
+	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,0), NULL,
+				   "fastcall-provider/%d",0);
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp: can't create device");
 		result = PTR_ERR(fcp_device);
