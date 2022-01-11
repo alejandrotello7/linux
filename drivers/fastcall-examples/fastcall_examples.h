@@ -6,7 +6,6 @@
 
 /*
  * ioctl_args - information returned from the fastcall-examples ioctl handlers
- *
  * @addr  - Start of the function mapping
  * @len   - Length of the function mapping
  * @index - Index of the function in the fastcall table

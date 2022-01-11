@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0
+config FASTCALL_PROVIDER
+	tristate "Fastcall Provider Driver"
+	depends on FASTCALL
+	default y
+	help
+	  The driver is located at /dev/fastcall-provider and is controlled via ioctl
+	  to register a new fastcall library

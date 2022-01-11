@@ -1,0 +1,18 @@
+//
+// Created by atello on 10.01.22.
+//
+
+#ifndef LINUX_FASTCALL_PROVIDER_H
+#define LINUX_FASTCALL_PROVIDER_H
+
+#define FCP_DEVICE_NAME "fastcall-provider"
+#define MAX_MINOR_DEVICES 2
+
+#define FCP_TYPE 0xDA
+#define FCP_IOCTL(cmd) (_IOR(FCE_TYPE, cmd, int))
+#define FCP_IOCTL_REGISTER_FASTCALL (FCP_IOCTL(1))
+
+
+
+
+#endif //LINUX_FASTCALL_PROVIDER_H

@@ -14,6 +14,7 @@ obj-y				+= fastcall-event/
 obj-y				+= fastcall-examples/
 obj-y				+= fastcall-in-c/
 obj-y				+= fastcall-template/
+obj-y				+= fastcall-provider/
 
 # GPIO must come after pinctrl as gpios may need to mux pins etc
 obj-$(CONFIG_PINCTRL)		+= pinctrl/
