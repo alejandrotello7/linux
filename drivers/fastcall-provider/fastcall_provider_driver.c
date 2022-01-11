@@ -34,10 +34,12 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 {
 	//If there is no ioctl command
 	long ret = -ENOIOCTLCMD;
+	char *temp;
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL:
-		//todo
+		copy_from_user(temp, (char *)args, strlen((char *)args));
+		printk(KERN_INFO "MEssage : %s\n", temp);
 		ret = 0;
 		break;
 	}
@@ -58,7 +60,8 @@ static int __init fcp_init(void)
 	};
 
 	//Allocate character device number
-	result = alloc_chrdev_region(&fcp_dev, 0, MAX_MINOR_DEVICES, FCP_DEVICE_NAME);
+	result = alloc_chrdev_region(&fcp_dev, 0, MAX_MINOR_DEVICES,
+				     FCP_DEVICE_NAME);
 	if(result < 0){
 		pr_warn("fcp: Can't allocate chrdev region");
 		return -1;
@@ -93,7 +96,8 @@ static int __init fcp_init(void)
 	}
 
 	//Create fastcall provider device and link it in /dev/ directory
-	fcp_device = device_create(fcp_class, NULL, fcp_dev, NULL, FCP_DEVICE_NAME);
+	fcp_device = device_create(fcp_class, NULL, fcp_dev, NULL,
+				   FCP_DEVICE_NAME);
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp: can't create device");
 		result = PTR_ERR(fcp_device);
