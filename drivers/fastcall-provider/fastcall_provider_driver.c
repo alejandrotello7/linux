@@ -20,6 +20,9 @@
 MODULE_DESCRIPTION(
 	"Driver to Fast Call provider user service");
 static dev_t fcp_dev;
+static struct cdev *fcp_cdev;
+static struct class *fcp_class;
+static struct device *fcp_device;
 
 //Global storage for device Major number
 static int dev_major = 0;
@@ -55,14 +58,14 @@ static int __init fcp_init(void)
 	};
 
 	//Allocate character device number
-	result = alloc_chrdev_region(&fcp_dev, 0, MAX_MINOR_DEVICES, FCE_DEVICE_NAME);
+	result = alloc_chrdev_region(&fcp_dev, 0, MAX_MINOR_DEVICES, FCP_DEVICE_NAME);
 	if(result < 0){
-		pr_warn("fcp: Can't allocate chrdev region")
+		pr_warn("fcp: Can't allocate chrdev region");
 		return -1;
 	}
 
 	//Save device major number in global variable
-	dev_major = MAJOR(dev);
+	dev_major = MAJOR(fcp_dev);
 
 	//Allocate character device struct
 	fcp_cdev = cdev_alloc();
