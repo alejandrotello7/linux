@@ -14,7 +14,7 @@ int main(void){
 	int args = 0;
 
 	//open fastcall-provider device
-	fd = open(DEVICE_PATH); //@todo - check the flag
+	fd = open(DEVICE_PATH, O_RDONLY); //@todo - check the flag
 	if(fd < 0){
 		perror("open failed");
 		return -1;
