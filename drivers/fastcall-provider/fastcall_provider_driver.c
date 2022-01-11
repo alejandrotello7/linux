@@ -38,12 +38,12 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL:
-		copy_from_user(temp, (char *)args, strlen((char *)args));
-		printk(KERN_INFO "MEssage : %s\n", temp);
+		/*copy_from_user(temp, (char *)args, strlen((const char *)args));
+		printk(KERN_INFO "MEssage : %s\n", temp);*/
 		ret = 0;
 		break;
 	}
-	return ret == 1 ? -EFAULT : ret;
+	return ret == -1 ? -EFAULT : ret;
 
 }
 
