@@ -9,7 +9,7 @@
 #define MAX_MINOR_DEVICES 2
 
 #define FCP_TYPE 0xDA
-#define FCP_IOCTL(cmd) (_IOR(FCE_TYPE, cmd, int))
+#define FCP_IOCTL(cmd) (_IOR(FCP_TYPE, cmd, int))
 #define FCP_IOCTL_REGISTER_FASTCALL (FCP_IOCTL(1))
 
 
