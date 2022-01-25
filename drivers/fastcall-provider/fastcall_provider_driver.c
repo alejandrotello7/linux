@@ -26,8 +26,7 @@ static struct class *fcp_class;
 static struct device *fcp_device;
 
 static struct cdev *fcp_cdev_app;
-static struct class *fcp_class_app;
-static struct device *fcp_device_app;
+
 
 //Global storage for device Major number
 static int dev_major = 0;
@@ -52,7 +51,7 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 
 /*
- * fcp_ioctl() - register ioctl handlers for app
+ * fcp_ioctl_app() - register ioctl handlers for app
  */
 static long fcp_ioctl_app(struct file *file, unsigned int cmd, unsigned long args)
 {
