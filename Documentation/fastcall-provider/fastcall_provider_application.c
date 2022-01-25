@@ -27,7 +27,7 @@ int main(void){
 		perror("ioctl failed");
 		return -1;
 	}else{
-		printf("%d", result);
+		printf("%d\n", result);
 	}
 		
 

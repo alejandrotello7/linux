@@ -10,7 +10,7 @@
 #define FCP_TYPE 0xDA
 #define FCP_IOCTL(cmd) (_IOR(FCP_TYPE, cmd, int))
 #define FCP_IOCTL_REGISTER_FASTCALL (FCP_IOCTL(1))
-
+#define FCP_IOCTL_REGISTER_FASTCALL_tester (FCP_IOCTL(2))
 
 
 

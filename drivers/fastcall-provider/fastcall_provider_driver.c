@@ -25,6 +25,10 @@ static struct cdev *fcp_cdev;
 static struct class *fcp_class;
 static struct device *fcp_device;
 
+static struct cdev *fcp_cdev_app;
+static struct class *fcp_class_app;
+static struct device *fcp_device_app;
+
 //Global storage for device Major number
 static int dev_major = 0;
 
@@ -46,6 +50,24 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 }
 
+
+/*
+ * fcp_ioctl() - register ioctl handlers for app
+ */
+static long fcp_ioctl_app(struct file *file, unsigned int cmd, unsigned long args)
+{
+	//If there is no ioctl command
+	long ret = -ENOIOCTLCMD;
+
+	switch(cmd){
+	case FCP_IOCTL_REGISTER_FASTCALL_tester:
+		ret = 43;
+		break;
+	}
+	return ret == -1 ? -EFAULT : ret;
+
+}
+
 /*
  * fcp_init() - initialize fastcall-provider module
  * Adds fastcall-provider character device.
@@ -57,6 +79,12 @@ static int __init fcp_init(void)
 		.owner = THIS_MODULE,
 		.unlocked_ioctl = fcp_ioctl,
 	};
+
+		static struct file_operations fops_app = {
+		.owner = THIS_MODULE,
+		.unlocked_ioctl = fcp_ioctl_app,
+	};
+
 
 	//Allocate character device number
 	result = alloc_chrdev_region(&fcp_dev, 0, MAX_MINOR_DEVICES,
@@ -80,6 +108,17 @@ static int __init fcp_init(void)
 	fcp_cdev->owner = THIS_MODULE;
 	fcp_cdev->ops = &fops;
 
+	//Allocate character device structure for application
+	fcp_cdev_app = cdev_alloc();
+	if(fcp_cdev_app == NULL){
+		pr_warn("fcp: Can't allocate struc cdev");
+		result = -ENOMEM;
+		unregister_chrdev_region(fcp_dev_app, MAX_MINOR_DEVICES);
+		return result;
+	}
+	fcp_cdev_app->owner = THIS_MODULE;
+	fcp_cdev_app->ops = &fops_app;
+
 	//Add character device to the kernel
 	result = cdev_add(fcp_cdev, MKDEV(dev_major,0), MAX_MINOR_DEVICES);
 	if(result < 0 ){
@@ -87,6 +126,8 @@ static int __init fcp_init(void)
 		cdev_del(fcp_cdev);
 		return result;
 	}
+
+	cdev_add(fcp_cdev_app, MKDEV(dev_major,1), MAX_MINOR_DEVICES);
 
 	//Create a class for the device
 	fcp_class = class_create(THIS_MODULE, FCP_DEVICE_NAME);
