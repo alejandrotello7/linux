@@ -113,7 +113,7 @@ static int __init fcp_init(void)
 	if(fcp_cdev_app == NULL){
 		pr_warn("fcp: Can't allocate struc cdev");
 		result = -ENOMEM;
-		unregister_chrdev_region(fcp_dev_app, MAX_MINOR_DEVICES);
+		unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
 		return result;
 	}
 	fcp_cdev_app->owner = THIS_MODULE;
