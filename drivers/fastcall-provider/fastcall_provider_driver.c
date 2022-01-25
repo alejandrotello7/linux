@@ -19,6 +19,7 @@
 
 MODULE_DESCRIPTION(
 	"Driver to Fast Call provider user service");
+
 static dev_t fcp_dev;
 static struct cdev *fcp_cdev;
 static struct class *fcp_class;
@@ -38,9 +39,7 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL:
-		/*copy_from_user(temp, (char *)args, strlen((const char *)args));
-		printk(KERN_INFO "MEssage : %s\n", temp);*/
-		ret = 0;
+		ret = 42;
 		break;
 	}
 	return ret == -1 ? -EFAULT : ret;

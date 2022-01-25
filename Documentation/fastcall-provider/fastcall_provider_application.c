@@ -11,7 +11,8 @@
 
 int main(void){
 	int fd;
-	int args = 0;
+	int args = 1;
+	int result = 0;
 
 	//open fastcall-provider device
 	fd = open(DEVICE_PATH, O_RDONLY); //@todo - check the flag
@@ -20,11 +21,15 @@ int main(void){
 		return -1;
 	}
 
+	result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, args); 
 	//register a new library so function
-	if(ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, args) < 0 ){
+	if( result < 0 ){
 		perror("ioctl failed");
 		return -1;
+	}else{
+		printf("%d", result);
 	}
+		
 
 	if(close(fd)){
 		perror("close failed");
