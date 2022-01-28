@@ -21,7 +21,7 @@ int main(void){
 		return -1;
 	}
 
-	result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, args); 
+	result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL_tester, args); 
 	//register a new library so function
 	if( result < 0 ){
 		perror("ioctl failed");

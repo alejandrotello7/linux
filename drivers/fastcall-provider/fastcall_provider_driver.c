@@ -60,6 +60,7 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL:
+		add_application_device();
 		ret = 42;
 		break;
 	}
@@ -78,7 +79,6 @@ static long fcp_ioctl_app(struct file *file, unsigned int cmd, unsigned long arg
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL_tester:
-		add_application_device();
 		ret = 43;
 		break;
 	}
