@@ -39,11 +39,13 @@ static int add_application_device(void){
 		pr_warn("fcp: can't create class");
 	}
 	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,counter), NULL,
-				   "fastcall-provider/%d",0);
+				   "fastcall-provider/%d",counter);
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp: can't create device");
 		result = PTR_ERR(fcp_device);
 		class_destroy(fcp_class);
+	}else{
+		counter++;
 	}
 	return result;
 
