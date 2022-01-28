@@ -32,9 +32,8 @@ static struct cdev *fcp_cdev_app;
 static int dev_major = 0;
 static int counter = 2;
 
-static int add_application_device(void){
-	int result = 20;
-	fcp_class = class_create(THIS_MODULE, FCP_DEVICE_NAME);
+static long add_application_device(void){
+	long result = 20;
 	if(IS_ERR_VALUE(fcp_class)){
 		pr_warn("fcp: can't create class");
 		result = 30;
