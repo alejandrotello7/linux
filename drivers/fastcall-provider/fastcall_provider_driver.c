@@ -30,6 +30,22 @@ static struct cdev *fcp_cdev_app;
 
 //Global storage for device Major number
 static int dev_major = 0;
+static int counter = 2;
+
+static void add_application_device(void){
+	fcp_class = class_create(THIS_MODULE, FCP_DEVICE_NAME);
+	if(IS_ERR_VALUE(fcp_class)){
+		pr_warn("fcp: can't create class");
+	}
+	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,counter), NULL,
+				   "fastcall-provider/%d",0);
+	if (IS_ERR_VALUE(fcp_device)) {
+		pr_warn("fcp: can't create device");
+		result = PTR_ERR(fcp_device);
+		class_destroy(fcp_class);
+	}
+
+}
 
 /*
  * fcp_ioctl() - register ioctl handlers
@@ -60,6 +76,7 @@ static long fcp_ioctl_app(struct file *file, unsigned int cmd, unsigned long arg
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL_tester:
+		add_application_device();
 		ret = 43;
 		break;
 	}
@@ -133,6 +150,8 @@ static int __init fcp_init(void)
 	if(IS_ERR_VALUE(fcp_class)){
 		pr_warn("fcp: can't create class");
 	}
+
+
 
 	//Create fastcall provider device and link it in /dev/ directory
 	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,0), NULL,
