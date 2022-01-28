@@ -33,10 +33,11 @@ static int dev_major = 0;
 static int counter = 2;
 
 static int add_application_device(void){
-	int result = 0;
+	int result = 20;
 	fcp_class = class_create(THIS_MODULE, FCP_DEVICE_NAME);
 	if(IS_ERR_VALUE(fcp_class)){
 		pr_warn("fcp: can't create class");
+		result = 30;
 	}
 	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,counter), NULL,
 				   "fastcall-provider/%d",counter);
@@ -62,8 +63,7 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL:
-		add_application_device();
-		ret = 42;
+		ret = add_application_device();
 		break;
 	}
 	return ret == -1 ? -EFAULT : ret;
