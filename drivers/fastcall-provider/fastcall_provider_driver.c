@@ -30,15 +30,19 @@ static struct cdev *fcp_cdev_app;
 
 //Global storage for device Major number
 static int dev_major = 0;
-static int counter = 2;
+static int counter = 1;
 
+
+/*
+* add_application_device() - registration of a new function. Returns 0 on success, -1 on failure.
+*/
 static long add_application_device(unsigned long args){
-	long result = 20;
+	long result = 0;
 	struct ioctl_args *io_args;
 
 	if(IS_ERR_VALUE(fcp_class)){
 		pr_warn("fcp: can't create class");
-		result = 30;
+		result = -1;
 	}
 	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,counter), NULL,
 				   "fastcall-provider/%d",counter);
@@ -49,9 +53,13 @@ static long add_application_device(unsigned long args){
 	}else{
 		io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
 		io_args->file_name = counter;
-		copy_to_user((void *)args, io_args, sizeof(struct ioctl_args));
+		if(copy_to_user((void *)args, io_args, sizeof(struct ioctl_args)))
+			goto fail;
 		counter++;
 	}
+
+	fail:
+		kfree(io_args);
 	return result;
 
 }
