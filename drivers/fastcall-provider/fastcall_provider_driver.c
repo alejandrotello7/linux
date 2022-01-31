@@ -66,7 +66,7 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL:
-		ret = add_application_device();
+		ret = add_application_device(args);
 		break;
 	}
 	return ret == -1 ? -EFAULT : ret;
