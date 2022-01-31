@@ -9,7 +9,7 @@
 
 struct ioctl_args{
 	unsigned int file_name;
-}
+};
 
 //char const *FUNCTION_NAME = "ucp_worker_close_ifaces\n";
 
