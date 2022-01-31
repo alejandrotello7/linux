@@ -7,7 +7,7 @@
 #define DEVICE_PATH ("/dev/fastcall-provider/0")
 #define LIBRARY_PATH ("/path/to/library")
 
-strcut ioctl_args{
+struct ioctl_args{
 	unsigned int file_name;
 }
 

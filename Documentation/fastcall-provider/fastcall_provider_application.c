@@ -13,7 +13,7 @@
 int main(void){
 	int fd;
 	int result = 0;
-	strcut ioctl_args args;
+	struct ioctl_args args;
 
 	//open fastcall-provider device
 	fd = open(DEVICE_PATH, O_RDONLY); //@todo - check the flag
