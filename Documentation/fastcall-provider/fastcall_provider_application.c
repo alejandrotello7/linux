@@ -9,10 +9,11 @@
 #include <unistd.h>
 #include "fastcall_provider_application_headers.h"
 
+
 int main(void){
 	int fd;
-	int args = 1;
 	int result = 0;
+	strcut ioctl_args args;
 
 	//open fastcall-provider device
 	fd = open(DEVICE_PATH, O_RDONLY); //@todo - check the flag
@@ -21,13 +22,14 @@ int main(void){
 		return -1;
 	}
 
-	result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, args); 
+	result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, &args); 
 	//register a new library so function
 	if( result < 0 ){
 		perror("ioctl failed");
 		return -1;
 	}else{
 		printf("%d\n", result);
+		printf("%d\n",args.file_name);
 	}
 		
 

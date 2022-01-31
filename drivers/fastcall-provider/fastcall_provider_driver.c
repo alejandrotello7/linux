@@ -32,8 +32,10 @@ static struct cdev *fcp_cdev_app;
 static int dev_major = 0;
 static int counter = 2;
 
-static long add_application_device(void){
+static long add_application_device(unsigned long args){
 	long result = 20;
+	struct ioctl_args *ioctl_args;
+
 	if(IS_ERR_VALUE(fcp_class)){
 		pr_warn("fcp: can't create class");
 		result = 30;
@@ -45,6 +47,8 @@ static long add_application_device(void){
 		result = PTR_ERR(fcp_device);
 		class_destroy(fcp_class);
 	}else{
+		ioctl_args->file_name = counter;
+		copy_to_user((void *)args, ioctl_args, sizeof(struct ioctl_args));
 		counter++;
 	}
 	return result;

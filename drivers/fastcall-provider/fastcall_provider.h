@@ -12,7 +12,9 @@
 #define FCP_IOCTL_REGISTER_FASTCALL (FCP_IOCTL(1))
 #define FCP_IOCTL_REGISTER_FASTCALL_tester (FCP_IOCTL(2))
 
-
+struct ioctl_args {
+	unsigned int file_name;
+};
 
 
 #endif //LINUX_FASTCALL_PROVIDER_H

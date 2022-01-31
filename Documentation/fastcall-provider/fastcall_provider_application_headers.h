@@ -7,6 +7,10 @@
 #define DEVICE_PATH ("/dev/fastcall-provider/0")
 #define LIBRARY_PATH ("/path/to/library")
 
+strcut ioctl_args{
+	unsigned int file_name;
+}
+
 //char const *FUNCTION_NAME = "ucp_worker_close_ifaces\n";
 
 
