@@ -47,6 +47,7 @@ static long add_application_device(unsigned long args){
 		result = PTR_ERR(fcp_device);
 		class_destroy(fcp_class);
 	}else{
+		io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
 		io_args->file_name = counter;
 		copy_to_user((void *)args, io_args, sizeof(struct ioctl_args));
 		counter++;
