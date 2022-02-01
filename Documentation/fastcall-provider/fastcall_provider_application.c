@@ -12,7 +12,7 @@
 
 int main(void){
 	int fd;
-	int result = 0;
+	int result = 42;
 	struct ioctl_args args;
 
 	//open fastcall-provider device

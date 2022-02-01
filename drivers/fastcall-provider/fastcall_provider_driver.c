@@ -30,7 +30,7 @@ static struct cdev *fcp_cdev_app;
 
 //Global storage for device Major number
 static int dev_major = 0;
-static int counter = 1;
+static int counter = 2;
 
 
 /*
@@ -93,7 +93,7 @@ static long fcp_ioctl_app(struct file *file, unsigned int cmd, unsigned long arg
 
 	switch(cmd){
 	case FCP_IOCTL_REGISTER_FASTCALL_tester:
-		ret = 43;
+		ret = 0;
 		break;
 	}
 	return ret == -1 ? -EFAULT : ret;
