@@ -787,7 +787,7 @@ asmlinkage long sys_sysinfo(struct sysinfo __user *info);
 asmlinkage long sys_fastcall(void);
 
 /* summer/summer.c */
-asmlinkage long sys_summer(unsigned int arg1, unsigned int arg2);
+asmlinkage int sys_summer(int arg1, int arg2);
 
 /* ipc/mqueue.c */
 asmlinkage long sys_mq_open(const char __user *name, int oflag, umode_t mode, struct mq_attr __user *attr);
