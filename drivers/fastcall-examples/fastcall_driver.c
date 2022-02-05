@@ -30,6 +30,7 @@ const void fce_array(void);
 const void fce_array_nt(void);
 const void fce_mwait(void);
 const void fce_sum(void);
+const void fce_summer(void);
 
 /*
  * FCE_FUNCTIONS_SIZE - size of the fastcall function text segment in bytes
@@ -405,6 +406,8 @@ static long fce_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 	case FCE_IOCTL_SUM:
 		ret = private_example_sum(args);
 		break;
+	case FCE_IOCTL_SUMMER:
+		ret = private_example_sum(args);
 	}
 
 	return ret == 1 ? -EFAULT : ret;

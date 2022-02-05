@@ -47,5 +47,6 @@ typedef struct array_args mwait_args_struct;
 #define FCE_IOCTL_MWAIT (_IOR(FCE_TYPE, 5, mwait_args_struct))
 #define FCE_IOCTL_NONE _IO(FCE_TYPE,6)
 #define FCE_IOCTL_SUM (FCE_IOCTL(7))
+#define FCE_IOCTL_SUMMER (FCE_IOCTL(8))
 
 #endif /* _FASTCALL_EXAMPLES_H */

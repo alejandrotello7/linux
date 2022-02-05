@@ -21,6 +21,7 @@
 #define FCE_IOCTL_NONE _IO(FCE_TYPE,6)
 #define FCE_IOCTL_PRIV (FCE_IOCTL(2))
 #define FCE_IOCTL_SUM (FCE_IOCTL(7))
+#define FCE_IOCTL_SUMMER (FCE_IOCTL(8))
 
 #define DEVICE_PATH ("/dev/fastcall-examples")
 #define MAGIC (10)
@@ -53,8 +54,12 @@ int main(void) {
   // Use the shared memory area.
   //*((unsigned long *)args.shared_addr) = MAGIC;
 
-	long arg1 = 42;
+	/*long arg1 = 42;
 	long arg2= 10;
+	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);*/
+
+  int arg1 = 42;
+	int arg2= 10;
 	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);
 	
 
@@ -63,9 +68,9 @@ int main(void) {
     fprintf(stderr, "syscall failed\n");
     return 1;
   }
-  printf("Arg value 1: %lu\n", arg1);
-  printf("Arg value 1: %lu\n", arg2);
-  printf("Arg value 1: %d\n", returnValue);  
+  printf("Arg value 1: %d\n", arg1);
+  printf("Arg value 2: %d\n", arg2);
+  printf("Return value: %d\n", returnValue);  
 
   // For deregistration unmap the fastcall function memory area.
   /*if (munmap((void *)args.fn_addr, args.fn_len)) {

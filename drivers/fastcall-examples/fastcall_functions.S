@@ -93,7 +93,32 @@ SYM_CODE_START(fce_sum)
 	sysretq
 SYM_CODE_END(fce_sum)
 
+/*	
+ * fce_summer - sysret with the sum of argument1 and argument2	
+ *	
+ * Reads from the address stored in the first and second entry attribute.		
+ */
 
+ SYM_CODE_START(fce_summer)
+	UNWIND_HINT_EMPTY
+
+	push %rbp 
+	mov %rsp,%rbp
+	sub $0x20, %rsp
+	mov %edi, -0x14(%rbp)
+	mov %esi, -0x18(%rbp)
+	mov -0x18(%rbp), %edx
+	mov -0x14(%rbp), %eax
+	mov %eax, %esi
+	mov $0x1bb, %edi
+	mov $0x0, %eax
+	callq 1030(syscall@plt)
+	mov %eax, -0x4(%rbp)
+	mov -0x4(%rbp),%eax
+	leaveq
+	sysretq
+	SYM_CODE_END(fce_summer)
+	
 /*
  * fce_array - copy data from the shared memroy region
  *
