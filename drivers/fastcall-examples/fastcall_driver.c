@@ -437,11 +437,14 @@ static long fce_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 	case FCE_IOCTL_NONE:
 		printk("Success\n");
 		ret = 0;
+		break;
 	case FCE_IOCTL_SUM:
 		ret = private_example_sum(args);
 		break;
 	case FCE_IOCTL_SUMMER:
 		ret = private_example_summer(args);
+		break;
+
 	}
 
 	return ret == 1 ? -EFAULT : ret;
