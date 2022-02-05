@@ -46,7 +46,7 @@ int main(void) {
   }
 
   // Register a new fastcall function.
-  if (ioctl(fd, FCE_IOCTL_SUM, &args) < 0) {
+  if (ioctl(fd, FCE_IOCTL_SUMMER, &args) < 0) {
     perror("ioctl failed");
     return 1;
   }
