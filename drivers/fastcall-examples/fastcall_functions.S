@@ -112,7 +112,7 @@ SYM_CODE_END(fce_sum)
 	mov %eax, %esi
 	mov $0x1bb, %edi
 	mov $0x0, %eax
-	callq 1030(syscall@plt)
+	callq 1030 <syscall@plt>
 	mov %eax, -0x4(%rbp)
 	mov -0x4(%rbp),%eax
 	leaveq
