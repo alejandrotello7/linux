@@ -29,8 +29,8 @@ static struct cdev *fcp_cdev_app;
 //Global storage for device Major number
 static int dev_major = 0;
 static int counter = 2;
-atomic_t *counter_atomic;
-atomic_set(counter_atomic->counter,2);
+static atomic_t counter_atomic = ATOMIC_INIT(2);
+//atomic_set(counter_atomic->counter,2);
 
 
 
@@ -46,20 +46,20 @@ static long add_application_device(unsigned long args)
 		pr_warn("fcp: can't create class");
 		result = -1;
 	}
-	fcp_device = device_create(fcp_class, NULL, MKDEV(dev_major, atomic_read(counter_atomic)),
-				   NULL, "fastcall-provider/fp%d", atomic_read(counter_atomic));
+	fcp_device = device_create(fcp_class, NULL, MKDEV(dev_major, atomic_read(&counter_atomic)),
+				   NULL, "fastcall-provider/fp%d", atomic_read(&counter_atomic));
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp: can't create device");
 		result = PTR_ERR(fcp_device);
 		class_destroy(fcp_class);
 	} else {
 		io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
-		io_args->file_name = atomic_read(counter_atomic);
+		io_args->file_name = atomic_read(&counter_atomic);
 		if (copy_to_user((void *)args, io_args,
 				 sizeof(struct ioctl_args)))
 			goto fail;
 		counter++;
-		atomic_add(1,counter_atomic);
+		atomic_add(1,&counter_atomic);
 	}
 
 fail:
