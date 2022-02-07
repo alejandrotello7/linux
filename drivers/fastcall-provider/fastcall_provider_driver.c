@@ -31,7 +31,7 @@ static int dev_major = 0;
 static int counter = 2;
 statin int valor = 2;
 atomic_t *counter_atomic;
-atomic_set(counter_atomic,valor);
+atomic_set(counter_atomic->counter,valor);
 
 
 
