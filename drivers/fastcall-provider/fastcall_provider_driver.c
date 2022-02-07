@@ -17,8 +17,7 @@
 #include <asm/cpufeature.h>
 #include "fastcall_provider.h"
 
-MODULE_DESCRIPTION(
-	"Driver to Fast Call provider user service");
+MODULE_DESCRIPTION("Driver to Fast Call provider user service");
 
 static dev_t fcp_dev;
 static struct cdev *fcp_cdev;
@@ -27,41 +26,46 @@ static struct device *fcp_device;
 
 static struct cdev *fcp_cdev_app;
 
-
 //Global storage for device Major number
 static int dev_major = 0;
 static int counter = 2;
+
+atomic_t *counter_atomic;
+atomic_set(counter_atomic,2);
 
 
 /*
 * add_application_device() - registration of a new function. Returns 0 on success, -1 on failure.
 */
-static long add_application_device(unsigned long args){
+static long add_application_device(unsigned long args)
+{
 	long result = 0;
 	struct ioctl_args *io_args;
 
-	if(IS_ERR_VALUE(fcp_class)){
+	if (IS_ERR_VALUE(fcp_class)) {
 		pr_warn("fcp: can't create class");
 		result = -1;
 	}
-	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,counter), NULL,
-				   "fastcall-provider/%d",counter);
+	fcp_device = device_create(fcp_class, NULL, MKDEV(dev_major, atomic_read(counter_atomic)),
+				   NULL, "fastcall-provider/fp%d", atomic_read(counter_atomic));
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp: can't create device");
 		result = PTR_ERR(fcp_device);
 		class_destroy(fcp_class);
-	}else{
+	} else {
 		io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
-		io_args->file_name = counter;
-		if(copy_to_user((void *)args, io_args, sizeof(struct ioctl_args)))
+		io_args->file_name = atomic_read(counter_atomic);
+		if (copy_to_user((void *)args, io_args,
+				 sizeof(struct ioctl_args)))
 			goto fail;
 		counter++;
+		atomic_add(1,counter_atomic);
 	}
 
-	fail:
-		kfree(io_args);
-	return result;
+fail:
+	kfree(io_args);
 
+	return result;
 }
 
 /*
@@ -73,31 +77,29 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 	long ret = -ENOIOCTLCMD;
 	char *temp;
 
-	switch(cmd){
+	switch (cmd) {
 	case FCP_IOCTL_REGISTER_FASTCALL:
 		ret = add_application_device(args);
 		break;
 	}
 	return ret == -1 ? -EFAULT : ret;
-
 }
-
 
 /*
  * fcp_ioctl_app() - register ioctl handlers for app
  */
-static long fcp_ioctl_app(struct file *file, unsigned int cmd, unsigned long args)
+static long fcp_ioctl_app(struct file *file, unsigned int cmd,
+			  unsigned long args)
 {
 	//If there is no ioctl command
 	long ret = -ENOIOCTLCMD;
 
-	switch(cmd){
+	switch (cmd) {
 	case FCP_IOCTL_REGISTER_FASTCALL_tester:
 		ret = 0;
 		break;
 	}
 	return ret == -1 ? -EFAULT : ret;
-
 }
 
 /*
@@ -112,16 +114,15 @@ static int __init fcp_init(void)
 		.unlocked_ioctl = fcp_ioctl,
 	};
 
-		static struct file_operations fops_app = {
+	static struct file_operations fops_app = {
 		.owner = THIS_MODULE,
 		.unlocked_ioctl = fcp_ioctl_app,
 	};
 
-
 	//Allocate character device number
 	result = alloc_chrdev_region(&fcp_dev, 0, MAX_MINOR_DEVICES,
 				     FCP_DEVICE_NAME);
-	if(result < 0){
+	if (result < 0) {
 		pr_warn("fcp: Can't allocate chrdev region");
 		return -1;
 	}
@@ -131,7 +132,7 @@ static int __init fcp_init(void)
 
 	//Allocate character device struct
 	fcp_cdev = cdev_alloc();
-	if(fcp_cdev == NULL){
+	if (fcp_cdev == NULL) {
 		pr_warn("fcp: Can't allocate struc cdev");
 		result = -ENOMEM;
 		unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
@@ -142,7 +143,7 @@ static int __init fcp_init(void)
 
 	//Allocate character device structure for application
 	fcp_cdev_app = cdev_alloc();
-	if(fcp_cdev_app == NULL){
+	if (fcp_cdev_app == NULL) {
 		pr_warn("fcp: Can't allocate struc cdev");
 		result = -ENOMEM;
 		unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
@@ -152,26 +153,24 @@ static int __init fcp_init(void)
 	fcp_cdev_app->ops = &fops_app;
 
 	//Add character device to the kernel
-	result = cdev_add(fcp_cdev, MKDEV(dev_major,0), MAX_MINOR_DEVICES);
-	if(result < 0 ){
+	result = cdev_add(fcp_cdev, MKDEV(dev_major, 0), MAX_MINOR_DEVICES);
+	if (result < 0) {
 		pr_warn("fcp: can't add character device");
 		cdev_del(fcp_cdev);
 		return result;
 	}
 
-	cdev_add(fcp_cdev_app, MKDEV(dev_major,1), MAX_MINOR_DEVICES);
+	cdev_add(fcp_cdev_app, MKDEV(dev_major, 1), MAX_MINOR_DEVICES);
 
 	//Create a class for the device
 	fcp_class = class_create(THIS_MODULE, FCP_DEVICE_NAME);
-	if(IS_ERR_VALUE(fcp_class)){
+	if (IS_ERR_VALUE(fcp_class)) {
 		pr_warn("fcp: can't create class");
 	}
 
-
-
 	//Create fastcall provider device and link it in /dev/ directory
-	fcp_device = device_create(fcp_class, NULL,  MKDEV(dev_major,0), NULL,
-				   "fastcall-provider/%d",0);
+	fcp_device = device_create(fcp_class, NULL, MKDEV(dev_major, 0), NULL,
+				   "fastcall-provider/%d", 0);
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp: can't create device");
 		result = PTR_ERR(fcp_device);
@@ -193,4 +192,3 @@ module_init(fcp_init);
 module_exit(fcp_exit);
 
 MODULE_LICENSE("GPL");
-

@@ -16,5 +16,4 @@ struct ioctl_args {
 	unsigned int file_name;
 };
 
-
 #endif //LINUX_FASTCALL_PROVIDER_H
