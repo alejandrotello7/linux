@@ -29,9 +29,8 @@ static struct cdev *fcp_cdev_app;
 //Global storage for device Major number
 static int dev_major = 0;
 static int counter = 2;
-statin int valor = 2;
 atomic_t *counter_atomic;
-atomic_set(counter_atomic->counter,valor);
+atomic_set(counter_atomic->counter,2);
 
 
 
