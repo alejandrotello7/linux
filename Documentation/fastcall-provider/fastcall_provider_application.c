@@ -16,7 +16,7 @@ int main(void)
 	struct ioctl_args args;
 
 	//open fastcall-provider device
-	fd = open(DEVICE_PATH, O_RDONLY); //@todo - check the flag
+	fd = open(FCP_REGISTRATION_PATH, O_RDONLY); //@todo - check the flag
 	if (fd < 0) {
 		perror("open failed");
 		return -1;

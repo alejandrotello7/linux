@@ -3,7 +3,7 @@
 #define FCP_IOCTL_REGISTER_FASTCALL (FCP_IOCTL(1))
 #define FCP_IOCTL_REGISTER_FASTCALL_tester (FCP_IOCTL(2))
 
-#define DEVICE_PATH ("/dev/fastcall-provider/fp0")
+#define FCP_REGISTRATION_PATH ("/dev/fastcall-provider/fp0")
 #define LIBRARY_PATH ("/path/to/library")
 
 struct ioctl_args {
