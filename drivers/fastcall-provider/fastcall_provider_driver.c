@@ -63,6 +63,7 @@ fail_copy:
 fail_device_creation:
 	class_destroy(fcp_class);
 	return result;
+}
 
 /*
  * fcp_ioctl() - register ioctl handlers
