@@ -28,8 +28,9 @@ int main(void)
 		perror("ioctl failed");
 		return -1;
 	} else {
-		printf("%d\n", result);
-		printf("%d\n", args.file_name);
+		printf("Return value: %d\n", result);
+		printf("Newly device node was created under /dev/fastcall-provider/fp%d\n",
+		       args.file_name);
 	}
 
 	if (close(fd)) {
