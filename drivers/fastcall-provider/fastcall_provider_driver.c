@@ -48,7 +48,8 @@ static long add_application_device(unsigned long args)
 		NULL, "fastcall-provider/fp%d", atomic_read(&counter_atomic));
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp_app: can't create device");
-		pr_warn("fcp_app: last atomic read values was %d", atomic_read(&counter_atomic));
+		pr_warn("fcp_app: last atomic read values was %d",
+			atomic_read(&counter_atomic));
 		result = PTR_ERR(fcp_device);
 		goto fail_device_creation;
 	}
@@ -79,7 +80,10 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 	case FCP_IOCTL_REGISTER_FASTCALL:
 		ret = add_application_device(args);
 		break;
+	default:
+		pr_warn("fcp: invalid ioctl call");
 	}
+
 	return ret == -1 ? -EINVAL : ret;
 }
 
@@ -96,7 +100,10 @@ static long fcp_ioctl_app(struct file *file, unsigned int cmd,
 	case FCP_IOCTL_REGISTER_FASTCALL_tester:
 		ret = 0;
 		break;
+	default:
+		pr_warn("fcp: invalid ioctl call");
 	}
+
 	return ret == -1 ? -EINVAL : ret;
 }
 
