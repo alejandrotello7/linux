@@ -48,6 +48,7 @@ static long add_application_device(unsigned long args)
 		NULL, "fastcall-provider/fp%d", atomic_read(&counter_atomic));
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp_app: can't create device");
+		pr_warn("fcp_app: last atomic read values was %d", atomic_read(&counter_atomic));
 		result = PTR_ERR(fcp_device);
 		goto fail_device_creation;
 	}
