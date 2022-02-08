@@ -60,8 +60,8 @@ static long add_application_device(unsigned long args)
 		goto fail_copy;
 	counter++;
 	atomic_inc(&counter_atomic);
-	return result;
-	
+	return 0;
+
 fail_copy:
 	kfree(io_args);
 fail_device_creation:
