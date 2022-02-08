@@ -46,6 +46,7 @@ static long add_application_device(unsigned long args)
 	fcp_device = device_create(
 		fcp_class, NULL, MKDEV(dev_major, atomic_read(&counter_atomic)),
 		NULL, "fastcall-provider/fp%d", atomic_read(&counter_atomic));
+	
 	if (IS_ERR_VALUE(fcp_device)) {
 		pr_warn("fcp_app: can't create device");
 		pr_warn("fcp_app: last atomic read values was %d",
@@ -59,7 +60,7 @@ static long add_application_device(unsigned long args)
 		goto fail_copy;
 	counter++;
 	atomic_inc(&counter_atomic);
-
+	return result;
 fail_copy:
 	kfree(io_args);
 fail_device_creation:
