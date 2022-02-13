@@ -7,7 +7,8 @@ char code[] = {0x55,0x48,0x89,0xe5,0x89,0x7d,0xec,0x89,
 		0x75, 0xe8, 0x8b, 0x55, 0xec, 0x8b, 0x45, 0xe8, 0x01,
 		0xd0, 0x89, 0x45, 0xfc, 0x8b, 0x45, 0xfc, 0x5d, 0xc3 };
 /*
-
+    mov $10, %esi
+    mov $2 , %edi
 */
 
 int main(int argc, char **argv) { 
@@ -19,6 +20,10 @@ int main(int argc, char **argv) {
     memcpy (buf, code, sizeof(code));
     __builtin___clear_cache(buf, buf+sizeof(code)-1);  // on x86 this just stops memcpy from optimizing away as a dead store
 
+
+    __asm__("mov $10, %esi;"
+                "mov $2, %edi;"
+                );
     /* run code */
     int i = ((int (*) (void))buf)();
     printf("Result returned: %d\n", i);
