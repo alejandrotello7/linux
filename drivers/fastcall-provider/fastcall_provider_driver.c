@@ -80,7 +80,7 @@ static long register_function(unsigned long args)
 	io_args = kmalloc((sizeof(struct ioctl_args) + sizeof(args)), GFP_KERNEL);
 	if (copy_from_user(io_args, (struct ioctl_args *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;
-	return sizeof(args);
+	return (io_args->binary_code[1]);
 fail_copy:
 	result = 42;
 	kfree(io_args);
@@ -94,7 +94,6 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 {
 	//If there is no ioctl command
 	long ret = -ENOIOCTLCMD;
-	char *temp;
 
 	switch (cmd) {
 	case FCP_IOCTL_REGISTER_FASTCALL:
