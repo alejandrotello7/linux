@@ -49,7 +49,7 @@ int main(void)
 		perror("ioctl failed");
 		return -1;
 	} else {
-		printf("Return value: %d\n", result);
+		printf("Return value: %x\n", result);
 	}
 
 
