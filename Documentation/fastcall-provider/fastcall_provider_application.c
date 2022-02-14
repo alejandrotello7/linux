@@ -7,7 +7,9 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <string.h>
 #include "fastcall_provider_application_headers.h"
+
 
 int main(void)
 {
@@ -19,6 +21,8 @@ int main(void)
 		0xd0, 0x89, 0x45, 0xfc, 0x8b, 0x45, 0xfc, 0x5d, 0xc3 };
 
 	strcpy(args.binary_code, code);
+	printf("size: %d", sizeof(args.binary_code));
+
 
 	//open fastcall-provider device
 	fd = open(FCP_REGISTRATION_PATH, O_RDONLY); //@todo - check the flag
