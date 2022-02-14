@@ -16,14 +16,14 @@ int main(void)
 {
 	int fd;
 	int result = 42;
-	struct ioctl_args *args;
+	struct ioctl_args args;
 	char code[] = {0x55,0x48,0x89,0xe5,0x89,0x7d,0xec,0x89,
 		0x75, 0xe8, 0x8b, 0x55, 0xec, 0x8b, 0x45, 0xe8, 0x01,
 		0xd0, 0x89, 0x45, 0xfc, 0x8b, 0x45, 0xfc, 0x5d, 0xc3 };
 
-	args = (struct ioctl_args *) malloc(sizeof(struct ioctl_args)+sizeof(code));
-	args->code_size = sizeof(code);
-	strcpy(args->binary_code,code);
+	//args = malloc(sizeof(struct ioctl_args)+sizeof(code));
+	args.code_size = sizeof(code);
+	strcpy(args.binary_code,code);
 	//printf("Value: %x", args->binary_code[0]);
 
 
