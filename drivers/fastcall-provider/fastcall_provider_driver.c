@@ -80,7 +80,7 @@ static long register_function(unsigned long args)
 	io_args = kzalloc(sizeof(struct ioctl_args) + sizeof(args), GFP_KERNEL);
 	if (copy_from_user(io_args, (void *)args, sizeof(args)))
 		goto fail_copy;
-	return 0;
+	return sizeof(io_args);
 fail_copy:
 	result = 42;
 	kfree(io_args);
