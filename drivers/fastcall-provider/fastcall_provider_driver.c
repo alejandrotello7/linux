@@ -79,8 +79,8 @@ static long register_function(unsigned long args)
 
 	//io_args = kmalloc((sizeof(struct ioctl_args) + sizeof(args)), GFP_KERNEL);
 	io_args = (struct ioctl_args *) kmalloc((sizeof(struct ioctl_args)+ sizeof(args)), GFP_KERNEL);
-	printk(KERN_ALERT "Size of args: %lu", sizeof(args));
-	printk(KERN_ALERT "Size of io_args: %lu", sizeof(io_args));
+	printk(KERN_ALERT "fcp: Size of args: %lu", sizeof(args));
+	printk(KERN_ALERT "fcp: Size of io_args: %lu", sizeof(io_args));
 
 	if (copy_from_user(io_args, (struct ioctl_args *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;

@@ -43,7 +43,7 @@ int main(void)
 		printf("Newly device node was created under /dev/fastcall-provider/fp%d\n",
 		       args.file_name);
 	}*/
-
+	pritnf("Size of args: %lu", sizeof(args));
 	result = ioctl(fd, FCP_IOCTL_REGISTER_FUNCTION, &args);
 	if (result < 0) {
 		perror("ioctl failed");
