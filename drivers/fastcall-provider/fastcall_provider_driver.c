@@ -75,7 +75,7 @@ fail_device_creation:
 static long register_function(unsigned long args)
 {
 	struct ioctl_args *io_args;
-	io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
+	io_args = kzalloc(sizeof(struct ioctl_args) + sizeof(args->binary_code), GFP_KERNEL);
 	if(copy_from_user(io_args->binary_code, args->binary_code, sizeof(args->binary_code)));
 		result = 42;
 		goto fail_copy;
