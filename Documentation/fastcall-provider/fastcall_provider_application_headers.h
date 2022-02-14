@@ -12,6 +12,5 @@ struct ioctl_args {
 	unsigned int file_name;
 	unsigned int code_size;
 	char binary_code[];
-
 };
 
