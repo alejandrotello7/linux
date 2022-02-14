@@ -76,8 +76,8 @@ static long register_function(unsigned long args)
 {
 	long result = 0;
 	struct ioctl_args *io_args;
-	io_args = kzalloc(sizeof(struct ioctl_args) + sizeof(char *(args->binary_code)), GFP_KERNEL);
-	if(copy_from_user(io_args->binary_code, char *(args->binary_code), sizeof(char *(args->binary_code))));
+	io_args = kzalloc(sizeof(struct ioctl_args) + sizeof((char *) args->binary_code), GFP_KERNEL);
+	if(copy_from_user(io_args->binary_code, (char *)args->binary_code, sizeof((char *)args->binary_code)));
 		result = 42;
 		goto fail_copy;
 
