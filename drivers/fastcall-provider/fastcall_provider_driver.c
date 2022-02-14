@@ -76,16 +76,13 @@ static long register_function(unsigned long args)
 {
 	long result = 0;
 	struct ioctl_args *io_args;
-	args = (struct ioctl_args *)args;
-
-	//io_args = kmalloc((sizeof(struct ioctl_args) + sizeof(args)), GFP_KERNEL);
-	io_args = (struct ioctl_args *) kmalloc((sizeof(struct ioctl_args)+ args->code_size), GFP_KERNEL);
+	io_args = kmalloc((sizeof(struct ioctl_args)+ (void *)args->code_size), GFP_KERNEL);
 	printk(KERN_ALERT "fcp: Size of args: %lu", sizeof(args));
 	printk(KERN_ALERT "fcp: Size of io_args: %lu", sizeof(io_args));
-	printk(KERN_ALERT "fcp: Size of code_size: %d", args->code_size);
+	printk(KERN_ALERT "fcp: Size of code_size: %d", (void *)args->code_size);
 
 
-	if (copy_from_user(io_args, args, sizeof((struct ioctl_args)+args->code_size)))
+	if (copy_from_user(io_args, (void *)args, sizeof((struct ioctl_args)+ (void *)args->code_size)))
 		goto fail_copy;
 	return (io_args->binary_code[1]);
 fail_copy:
