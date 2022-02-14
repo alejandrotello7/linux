@@ -14,6 +14,11 @@ int main(void)
 	int fd;
 	int result = 42;
 	struct ioctl_args args;
+	char code[] = {0x55,0x48,0x89,0xe5,0x89,0x7d,0xec,0x89,
+		0x75, 0xe8, 0x8b, 0x55, 0xec, 0x8b, 0x45, 0xe8, 0x01,
+		0xd0, 0x89, 0x45, 0xfc, 0x8b, 0x45, 0xfc, 0x5d, 0xc3 };
+
+	strcpy(args.binary_code, code);
 
 	//open fastcall-provider device
 	fd = open(FCP_REGISTRATION_PATH, O_RDONLY); //@todo - check the flag
@@ -22,7 +27,7 @@ int main(void)
 		return -1;
 	}
 
-	result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, &args);
+	/*result = ioctl(fd, FCP_IOCTL_REGISTER_FASTCALL, &args);
 	//register a new library so function
 	if (result < 0) {
 		perror("ioctl failed");
@@ -31,7 +36,18 @@ int main(void)
 		printf("Return value: %d\n", result);
 		printf("Newly device node was created under /dev/fastcall-provider/fp%d\n",
 		       args.file_name);
+	}*/
+
+	result = ioctl(fd, FCP_IOCTL_REGISTER_FUNCTION, &args);
+	if (result < 0) {
+		perror("ioctl failed");
+		return -1;
+	} else {
+		printf("Return value: %d\n", result);
 	}
+
+
+
 
 	if (close(fd)) {
 		perror("close failed");

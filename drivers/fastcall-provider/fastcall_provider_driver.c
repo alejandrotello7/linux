@@ -32,7 +32,7 @@ static int counter = 2;
 static atomic_t counter_atomic = ATOMIC_INIT(2);
 
 /*
-* add_application_device() - registration of a new function. Returns 0 on success, -1 on failure.
+* add_application_device() - Creates new device node. Returns 0 on success, -1 on failure.
 */
 static long add_application_device(unsigned long args)
 {
@@ -70,6 +70,24 @@ fail_device_creation:
 }
 
 /*
+* register_function() - copies the binary function from userspace
+*/
+static long register_function(unsigned long args)
+{
+	struct ioctl_args *io_args;
+	io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
+	if(copy_from_user(io_args->binary_code, args->binary_code, sizeof(args->binary_code)));
+		result = 42;
+		goto fail_copy;
+
+	return 0;
+fail_copy:
+	kfree(io_args);
+	return result;
+}
+
+
+/*
  * fcp_ioctl() - register ioctl handlers
  */
 static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
@@ -81,6 +99,9 @@ static long fcp_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 	switch (cmd) {
 	case FCP_IOCTL_REGISTER_FASTCALL:
 		ret = add_application_device(args);
+		break;
+	case FCP_IOCTL_REGISTER_FUNCTION:
+		ret = register_function(args);
 		break;
 	default:
 		pr_warn("fcp: invalid ioctl call");
