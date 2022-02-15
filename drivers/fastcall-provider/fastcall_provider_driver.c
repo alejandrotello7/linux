@@ -29,7 +29,6 @@ static struct cdev *fcp_cdev_app;
 static int dev_major = 0;
 static int counter = 2;
 static atomic_t counter_atomic = ATOMIC_INIT(2);
-struct ioctl_args *iop_args;
 
 
 
@@ -76,6 +75,7 @@ fail_device_creation:
 */
 static long register_function(unsigned long args)
 {
+	struct ioctl_args *iop_args;
 	long result = 0;
 	iop_args = kmalloc(sizeof(struct ioctl_args), GFP_KERNEL);
 	if (copy_from_user(iop_args, (void *)args, sizeof(struct ioctl_args)))
@@ -216,7 +216,6 @@ static void __exit fcp_exit(void)
 	class_destroy(fcp_class);
 	cdev_del(fcp_cdev);
 	unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
-	kfree(iop_args);
 
 }
 
