@@ -75,18 +75,16 @@ fail_device_creation:
 static long register_function(unsigned long args)
 {
 	long result = 0;
-	struct ioctl_args *io_args;
-	io_args = kmalloc((sizeof(struct ioctl_args)), GFP_KERNEL);
-	if (copy_from_user(io_args, (struct ioctl_args *)args, sizeof(struct ioctl_args)))
-		goto fail_copy;
-	if (copy_from_user(io_args->binary_code, (char *)args->binary_code, sizeof((char *)args->binary_code)))
+	struct ioctl_args *iop_args;
+	iop_args = kmalloc((sizeof(struct ioctl_args)), GFP_KERNEL);
+	if (copy_from_user(io_args, (void *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;
 
-	printk(KERN_INFO "Value: %x", io_args->binary_code[1]);
-	return (io_args->binary_code[1]);
+	printk(KERN_INFO "Value: %x", *iop_args->binary_code[1]);
+	return (*iop_args->binary_code[1]);
 fail_copy:
 	result = 42;
-	kfree(io_args);
+	kfree(iop_args);
 	return result;
 }
 

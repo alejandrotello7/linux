@@ -24,7 +24,7 @@ int main(void)
 	//args = malloc(sizeof(struct ioctl_args)+sizeof(code));
 	args.code_size = sizeof(code);
 	strcpy(args.binary_code,code);
-	//printf("Value: %x", args->binary_code[0]);
+	printf("Value: %x", args.binary_code[0]);
 
 
 	//open fastcall-provider device
