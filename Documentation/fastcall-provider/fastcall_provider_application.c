@@ -47,7 +47,15 @@ int main(void)
 		printf("Newly device node was created under /dev/fastcall-provider/fp%d\n",
 		       args_registration.file_name);
 	}
+	close(fd);
 
+
+	//open fastcall-provider device
+	fd = open(FCP_REGISTRATION_PATH, O_RDONLY); //@todo - check the flag
+	if (fd < 0) {
+		perror("open failed");
+		return -1;
+	}
 
 	result = ioctl(fd, FCP_IOCTL_REGISTER_FUNCTION, &args);
 	if (result < 0) {
