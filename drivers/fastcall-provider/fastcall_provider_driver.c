@@ -30,7 +30,6 @@ static struct cdev *fcp_cdev_app;
 static int dev_major = 0;
 static int counter = 2;
 static atomic_t counter_atomic = ATOMIC_INIT(2);
-static struct ioctl_args **iopp_args;
 
 
 /*
@@ -83,8 +82,9 @@ static long register_function(unsigned long args)
 		goto fail_copy;
 
 	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[2]);
-	iopp_args = &iop_args;
-	return (iop_args->binary_code[3]);
+	result = iop_args->binary_code[2];
+	kfree(iop_args);
+	return (result);
 fail_copy:
 	result = 42;
 	kfree(iop_args);
@@ -217,7 +217,6 @@ static void __exit fcp_exit(void)
 	class_destroy(fcp_class);
 	cdev_del(fcp_cdev);
 	unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
-	kfree(iopp_args);
 }
 
 module_init(fcp_init);
