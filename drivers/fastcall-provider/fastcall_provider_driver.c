@@ -83,7 +83,6 @@ static long register_function(unsigned long args)
 
 	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[2]);
 	result = iop_args->binary_code[2];
-	kfree(iop_args);
 	return (result);
 fail_copy:
 	result = 42;
@@ -217,6 +216,8 @@ static void __exit fcp_exit(void)
 	class_destroy(fcp_class);
 	cdev_del(fcp_cdev);
 	unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
+	kfree(iop_args);
+
 }
 
 module_init(fcp_init);
