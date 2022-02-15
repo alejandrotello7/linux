@@ -30,8 +30,6 @@ static int dev_major = 0;
 static int counter = 2;
 static atomic_t counter_atomic = ATOMIC_INIT(2);
 
-
-
 /*
 * add_application_device() - Creates new device node. Returns 0 on success, -1 on failure.
 */
@@ -82,8 +80,8 @@ static long register_function(unsigned long args)
 		goto fail_copy;
 
 	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[2]);
-	return iop_args->binary_code[2];
-	
+	//return iop_args->binary_code[2];
+	return 0;
 fail_copy:
 	result = 42;
 	kfree(iop_args);
@@ -216,7 +214,6 @@ static void __exit fcp_exit(void)
 	class_destroy(fcp_class);
 	cdev_del(fcp_cdev);
 	unregister_chrdev_region(fcp_dev, MAX_MINOR_DEVICES);
-
 }
 
 module_init(fcp_init);
