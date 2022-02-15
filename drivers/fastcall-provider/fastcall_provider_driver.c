@@ -83,10 +83,9 @@ static long register_function(unsigned long args)
 	iop_args->code_size = 42;
 	if (copy_to_user((void *)args, iop_args, sizeof(struct ioctl_args)))
 		goto fail_copy;
-	//return iop_args->binary_code[2];
 	return 0;
 fail_copy:
-	result = 42;
+	result = -1;
 	kfree(iop_args);
 	return result;
 }

@@ -24,7 +24,7 @@ int main(void)
 	//args = malloc(sizeof(struct ioctl_args)+sizeof(code));
 	args.code_size = sizeof(code);
 	strcpy(args.binary_code,code);
-	printf("Value: %x\n", args.binary_code[0]);
+	printf("Value of binary_code[0]: %x\n", args.binary_code[0]);
 
 
 	//open fastcall-provider device
@@ -44,13 +44,12 @@ int main(void)
 		printf("Newly device node was created under /dev/fastcall-provider/fp%d\n",
 		       args.file_name);
 	}*/
-	printf("Size of args: %lu\n", sizeof(args));
 	result = ioctl(fd, FCP_IOCTL_REGISTER_FUNCTION, &args);
 	if (result < 0) {
 		perror("ioctl failed");
 		return -1;
 	} else {
-		printf("Return value: %d\n", args.code_size);
+		printf("Return value from kernel: %d\n", args.code_size);
 	}
 
 
