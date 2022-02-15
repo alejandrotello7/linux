@@ -80,8 +80,8 @@ static long register_function(unsigned long args)
 	if (copy_from_user(iop_args, (void *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;
 
-	printk(KERN_INFO "Value: %x", iop_args->binary_code[1]);
-	return (iop_args->binary_code[1]);
+	printk(KERN_INFO "Value: %x", iop_args->binary_code[2]);
+	return (iop_args->binary_code[3]);
 fail_copy:
 	result = 42;
 	kfree(iop_args);
