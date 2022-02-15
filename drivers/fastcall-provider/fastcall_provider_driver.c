@@ -79,9 +79,12 @@ static long register_function(unsigned long args)
 	if (copy_from_user(iop_args, (void *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;
 
-	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[2]);
+	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[3]);
+	iop_args->code_size = 42;
+	if (copy_to_user((void *)args, iop_args, sizeof(struct ioctl_args)))
+		goto fail_copy;
 	//return iop_args->binary_code[2];
-	return 20;
+	return 0;
 fail_copy:
 	result = 42;
 	kfree(iop_args);
