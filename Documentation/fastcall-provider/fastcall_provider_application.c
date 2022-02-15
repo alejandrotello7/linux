@@ -55,7 +55,7 @@ int main(void)
 		return -1;
 	} else {
 		printf("Return value from kernel: %d\n", args.code_size);
-		printf("Value of binary_code[2]: %X\n", args.binary_code[2]);
+		printf("Value of binary_code[2]: %X\n", (int) args.binary_code[2]);
 	}
 
 
