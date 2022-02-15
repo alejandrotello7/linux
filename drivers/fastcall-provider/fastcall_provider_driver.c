@@ -55,7 +55,7 @@ static long add_application_device(unsigned long args)
 		goto fail_device_creation;
 	}
 	io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
-	 ->file_name = atomic_read(&counter_atomic);
+	io_args->file_name = atomic_read(&counter_atomic);
 	if (copy_to_user((void *)args, io_args, sizeof(struct ioctl_args)))
 		goto fail_copy;
 	counter++;
@@ -79,7 +79,7 @@ static long register_function(unsigned long args)
 	io_args = kmalloc((sizeof(struct ioctl_args)), GFP_KERNEL);
 	if (copy_from_user(io_args, (struct ioctl_args *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;
-	if (copy_from_user(io_args->binary_code, (struct ioctl_args *)args->binary_code, sizeof(io_args->binary_code)))
+	if (copy_from_user(io_args->binary_code, (char *)args->binary_code, sizeof((char *)args->binary_code)))
 		goto fail_copy;
 
 	printk(KERN_INFO "Value: %x", io_args->binary_code[1]);
