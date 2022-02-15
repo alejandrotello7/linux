@@ -81,7 +81,7 @@ static long register_function(unsigned long args)
 
 	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[2]);
 	//return iop_args->binary_code[2];
-	return 0;
+	return 20;
 fail_copy:
 	result = 42;
 	kfree(iop_args);
