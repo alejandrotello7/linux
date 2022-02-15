@@ -23,13 +23,14 @@ static dev_t fcp_dev;
 static struct cdev *fcp_cdev;
 static struct class *fcp_class;
 static struct device *fcp_device;
-
 static struct cdev *fcp_cdev_app;
 
 //Global storage for device Major number
 static int dev_major = 0;
 static int counter = 2;
 static atomic_t counter_atomic = ATOMIC_INIT(2);
+struct ioctl_args *iop_args;
+
 
 
 /*
@@ -76,7 +77,6 @@ fail_device_creation:
 static long register_function(unsigned long args)
 {
 	long result = 0;
-	struct ioctl_args *iop_args;
 	iop_args = kmalloc(sizeof(struct ioctl_args), GFP_KERNEL);
 	if (copy_from_user(iop_args, (void *)args, sizeof(struct ioctl_args)))
 		goto fail_copy;
