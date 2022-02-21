@@ -59,12 +59,13 @@ static long add_application_device(unsigned long args)
 		goto fail_copy;
 	counter++;
 	atomic_inc(&counter_atomic);
-	return 0;
+	result = 0;
+	//return 0;
 
 fail_copy:
 	kfree(io_args);
 fail_device_creation:
-	class_destroy(fcp_class);
+	//class_destroy(fcp_class);
 	return result;
 }
 
@@ -83,9 +84,10 @@ static long register_function(unsigned long args)
 	iop_args->code_size = 42;
 	if (copy_to_user((void *)args, iop_args, sizeof(struct ioctl_args)))
 		goto fail_copy;
-	return 0;
+	result = 0;
+	//return 0;
 fail_copy:
-	result = -1;
+	//result = -1;
 	kfree(iop_args);
 	return result;
 }
