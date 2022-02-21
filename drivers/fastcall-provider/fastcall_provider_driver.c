@@ -57,7 +57,6 @@ static long add_application_device(unsigned long args)
 	io_args->file_name = atomic_read(&counter_atomic);
 	if (copy_to_user((void *)args, io_args, sizeof(struct ioctl_args)))
 		goto fail_copy;
-	counter++;
 	atomic_inc(&counter_atomic);
 	result = 0;
 	//return 0;

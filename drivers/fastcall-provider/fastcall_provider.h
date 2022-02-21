@@ -16,7 +16,7 @@
 struct ioctl_args {
 	unsigned int file_name;
 	unsigned int code_size;
-	char binary_code[256];
+	char binary_code[128];
 };
 
 #endif //LINUX_FASTCALL_PROVIDER_H
