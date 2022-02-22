@@ -37,7 +37,7 @@ static atomic_t counter_atomic = ATOMIC_INIT(2);
 static long add_application_device(unsigned long args)
 {
 	long result = 0;
-	struct ioctl_args *io_args;
+	struct ioctl_args_provider *io_args;
 	print_fastcall();
 
 	if (IS_ERR_VALUE(fcp_class)) {
@@ -55,9 +55,9 @@ static long add_application_device(unsigned long args)
 		result = PTR_ERR(fcp_device);
 		goto fail_device_creation;
 	}
-	io_args = kzalloc(sizeof(struct ioctl_args), GFP_KERNEL);
+	io_args = kzalloc(sizeof(struct ioctl_args_provider), GFP_KERNEL);
 	io_args->file_name = atomic_read(&counter_atomic);
-	if (copy_to_user((void *)args, io_args, sizeof(struct ioctl_args)))
+	if (copy_to_user((void *)args, io_args, sizeof(struct ioctl_args_provider)))
 		goto fail_copy;
 	atomic_inc(&counter_atomic);
 	result = 0;
@@ -75,15 +75,15 @@ fail_device_creation:
 */
 static long register_function(unsigned long args)
 {
-	struct ioctl_args *iop_args;
+	struct ioctl_args_provider *iop_args;
 	long result = 0;
-	iop_args = kmalloc(sizeof(struct ioctl_args), GFP_KERNEL);
-	if (copy_from_user(iop_args, (void *)args, sizeof(struct ioctl_args)))
+	iop_args = kmalloc(sizeof(struct ioctl_args_provider), GFP_KERNEL);
+	if (copy_from_user(iop_args, (void *)args, sizeof(struct ioctl_args_provider)))
 		goto fail_copy;
 
 	printk(KERN_INFO "fcp: value: %x", iop_args->binary_code[3]);
 	iop_args->code_size = 42;
-	if (copy_to_user((void *)args, iop_args, sizeof(struct ioctl_args)))
+	if (copy_to_user((void *)args, iop_args, sizeof(struct ioctl_args_provider)))
 		goto fail_copy;
 	result = 0;
 	//return 0;

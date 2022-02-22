@@ -13,7 +13,7 @@
 #define FCP_IOCTL_REGISTER_FASTCALL_tester (FCP_IOCTL(2))
 #define FCP_IOCTL_REGISTER_FUNCTION (FCP_IOCTL(3))
 
-struct ioctl_args {
+struct ioctl_args_provider {
 	unsigned int file_name;
 	unsigned int code_size;
 	char binary_code[128];
