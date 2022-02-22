@@ -124,7 +124,7 @@ static long fcp_ioctl_app(struct file *file, unsigned int cmd,
 
 	switch (cmd) {
 	case FCP_IOCTL_REGISTER_FASTCALL_tester:
-		ret = 0;
+		ret = register_function(args);
 		break;
 	default:
 		pr_warn("fcp: invalid ioctl call");

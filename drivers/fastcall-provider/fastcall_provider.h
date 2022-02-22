@@ -5,7 +5,7 @@
 #ifndef LINUX_FASTCALL_PROVIDER_H
 #define LINUX_FASTCALL_PROVIDER_H
 #define FCP_DEVICE_NAME "fastcall-provider"
-#define MAX_MINOR_DEVICES 10
+#define MAX_MINOR_DEVICES 100
 
 #define FCP_TYPE 0xDA
 #define FCP_IOCTL(cmd) (_IOR(FCP_TYPE, cmd, int))
