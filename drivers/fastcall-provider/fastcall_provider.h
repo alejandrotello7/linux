@@ -19,4 +19,6 @@ struct ioctl_args {
 	char binary_code[128];
 };
 
+extern void print_fastcall(void); 
+
 #endif //LINUX_FASTCALL_PROVIDER_H

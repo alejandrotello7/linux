@@ -16,6 +16,7 @@
 #include <asm/pgtable.h>
 #include <asm/cpufeature.h>
 #include "fastcall_provider.h"
+#include "../fastcall-examples/fastcall_driver.h"
 
 MODULE_DESCRIPTION("Driver to Fast Call provider user service");
 
@@ -37,6 +38,7 @@ static long add_application_device(unsigned long args)
 {
 	long result = 0;
 	struct ioctl_args *io_args;
+	print_fastcall();
 
 	if (IS_ERR_VALUE(fcp_class)) {
 		pr_warn("fcp: can't create class");

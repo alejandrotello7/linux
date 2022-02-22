@@ -87,6 +87,7 @@ fail_register:
 fail_alloc:
 	return ret;
 }
+EXPORT_SYMBOL(register_and_copy);
 
 /*
  * function_offset - return the offset of the function into the containing page
@@ -95,6 +96,8 @@ static unsigned long function_offset(const void (*fn)(void))
 {
 	return fn - fce_functions_start;
 }
+EXPORT_SYMBOL(function_offset);
+
 
 /*
  * args_for - return fastcall_reg_args for this function
@@ -110,11 +113,14 @@ static struct fastcall_reg_args args_for(const void (*fn)(void))
 		.module = THIS_MODULE,
 	};
 }
+EXPORT_SYMBOL(args_for);
+
 
 static void single_unmap(void *priv)
 {
 	fastcall_remove_mapping((unsigned long)priv);
 }
+
 
 static void single_free(void *priv)
 {
@@ -199,6 +205,7 @@ fail_alloc:
 	return ret;
 		
 }
+EXPORT_SYMBOL(private_example_sum);
 
 static long private_example_summer(unsigned long args)
 		
@@ -233,6 +240,13 @@ fail_alloc:
 	return ret;
 		
 }
+EXPORT_SYMBOL(private_example_summer);
+
+static void print_fastcall(void)
+{
+	printk(KERN_ALERT "fcp:mod1\n");
+}
+EXPORT_SYMBOL(print_fastcall);
 
 static void array_unmap(void *priv)
 {
