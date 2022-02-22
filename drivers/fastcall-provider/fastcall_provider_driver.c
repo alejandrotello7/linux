@@ -16,7 +16,7 @@
 #include <asm/pgtable.h>
 #include <asm/cpufeature.h>
 #include "fastcall_provider.h"
-#include "../fastcall-examples/fastcall_driver.h"
+#include "../fastcall-examples/fastcall_examples.h"
 
 MODULE_DESCRIPTION("Driver to Fast Call provider user service");
 
