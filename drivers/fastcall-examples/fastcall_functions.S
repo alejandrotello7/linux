@@ -132,17 +132,7 @@ SYM_CODE_END(fce_sum)
 		
 SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
-	db 0x90 ;
-	db '90h' ;
-	db 55h ;
-	dw 55h ;
-	dd 55h ;
-	dq 55h ;
-	db '55h' ;
-	dw '55h' ;
-	dd '55h' ;
-	dq '55h' ;
-
+	.word 0x55 ;
 	dq '0x48 0xff 0xff' ;
 	dq '0x89' ;
 	dq '0xe5' ;
