@@ -132,8 +132,8 @@ SYM_CODE_END(fce_sum)
 		
 SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
-	dq 55h 
-	db '0x48' ;
+	dq 055h 
+	dq '048h' ;
 	db '0x89' ;
 	db '0xe5' ;
 	db 0x7d
