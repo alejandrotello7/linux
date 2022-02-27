@@ -22,6 +22,8 @@
 #define FCE_IOCTL_PRIV (FCE_IOCTL(2))
 #define FCE_IOCTL_SUM (FCE_IOCTL(7))
 #define FCE_IOCTL_SUMMER (FCE_IOCTL(8))
+#define FCE_IOCTL_PROVIDER (FCE_IOCTL(9))
+
 
 #define DEVICE_PATH ("/dev/fastcall-examples")
 #define MAGIC (10)
@@ -46,7 +48,7 @@ int main(void) {
   }
 
   // Register a new fastcall function.
-  if (ioctl(fd, FCE_IOCTL_SUMMER, &args) < 0) {
+  if (ioctl(fd, FCE_IOCTL_PROVIDER, &args) < 0) {
     perror("ioctl failed");
     return 1;
   }
@@ -58,16 +60,20 @@ int main(void) {
 	long arg2= 10;
 	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);*/
 
+
+    __asm__("mov $10, %esi;"
+                "mov $2, %edi;"
+                );
   int arg1 = 42;
 	int arg2= 10;
-	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);
+	int returnValue = syscall(SYS_FASTCALL, args.index);
 	
 
   // Perform the actual fastcall.
-  if (returnValue != arg1+arg2) {
+  /*if (returnValue != arg1+arg2) {
     fprintf(stderr, "syscall failed\n");
     return 1;
-  }
+  }*/
   printf("Arg value 1: %d\n", arg1);
   printf("Arg value 2: %d\n", arg2);
   printf("Return value: %d\n", returnValue);  

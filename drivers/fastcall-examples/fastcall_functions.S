@@ -89,7 +89,7 @@ SYM_CODE_START(fce_sum)
 	movq ARG2, (%rdi)
 	movq (%rdi), %rdi
 	addq %rdi, %rax
-		
+
 	sysretq
 SYM_CODE_END(fce_sum)
 
@@ -123,6 +123,44 @@ SYM_CODE_END(fce_sum)
 	sysretq
 	SYM_CODE_END(fce_summer)
 	
+
+/*	
+ * fce_provider - sysret with the sum of argument1 and argument2	
+ *	
+ * Reads from the address stored in the first and second entry attribute.		
+ */
+		
+SYM_CODE_START(fce_provider)
+	UNWIND_HINT_EMPTY
+	db 0x55
+	db 0x48
+	db 0x89
+	db 0xe5
+	db 0x89
+	db 0x7d
+	db 0xec
+	db 0x89
+	db 0x75
+	db 0xe8
+	db 0x8b
+	db 0x55
+	db 0xec
+	db 0x8b
+	db 0x45
+	db 0xe8
+	db 0x01
+	db 0xd0
+	db 0x89
+	db 0x45
+	db 0xfc
+	db 0x8b
+	db 0x45
+	db 0xfc
+	db 0x5d
+	db 0xc3
+
+	sysretq
+SYM_CODE_END(fce_provider)	
 /*
  * fce_array - copy data from the shared memroy region
  *
