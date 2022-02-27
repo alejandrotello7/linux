@@ -132,7 +132,7 @@ SYM_CODE_END(fce_sum)
 		
 SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
-	db 0x55 ;
+	db 55h ;
 	db 0x48 ;
 	db 0x89
 	db 0xe5
