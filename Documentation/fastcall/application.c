@@ -58,7 +58,9 @@ int main(void)
 	/*long arg1 = 42;
 	long arg2= 10;
 	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);*/
-
+    __asm__("mov $10, %esi;"
+                "mov $2, %edi;"
+                );
 	int returnValue = 0;
 	returnValue = syscall(SYS_FASTCALL, args.index, 1, 2);
 	printf("Return value: %d\n", returnValue);
