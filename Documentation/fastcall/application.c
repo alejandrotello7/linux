@@ -41,7 +41,7 @@ int main(void) {
   int fd;
 
   // Open the device to control it via ioctl.
-  fd = open(DEVICE_PATH, O_RDORNLY);
+  fd = open(DEVICE_PATH, O_RDONLY);
   if (fd < 0) {
     perror("open failed");
     return 1;
