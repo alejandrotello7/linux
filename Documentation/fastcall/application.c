@@ -32,7 +32,7 @@
 struct ioctl_args {
   unsigned long fn_addr;
   unsigned long fn_len;
-  //unsigned long shared_addr;
+  unsigned long shared_addr;
   unsigned index;
 };
 
@@ -60,13 +60,13 @@ int main(void) {
 	long arg2= 10;
 	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);*/
 
-
+/*
     __asm__("mov $10, %esi;"
                 "mov $2, %edi;"
                 );
   int arg1 = 42;
 	int arg2= 10;
-	int returnValue = syscall(SYS_FASTCALL, args.index);
+	int returnValue = syscall(SYS_FASTCALL, args.index);*/
 	
 
   // Perform the actual fastcall.
@@ -74,9 +74,9 @@ int main(void) {
     fprintf(stderr, "syscall failed\n");
     return 1;
   }*/
-  printf("Arg value 1: %d\n", arg1);
+  /*printf("Arg value 1: %d\n", arg1);
   printf("Arg value 2: %d\n", arg2);
-  printf("Return value: %d\n", returnValue);  
+  printf("Return value: %d\n", returnValue);  */
 
   // For deregistration unmap the fastcall function memory area.
   /*if (munmap((void *)args.fn_addr, args.fn_len)) {
