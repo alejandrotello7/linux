@@ -76,7 +76,7 @@ static int register_and_copy(struct fastcall_reg_args reg_args,
 	io_args->len = NR_FCE_PAGES * PAGE_SIZE;
 	io_args->index = reg_args.index;
 
-	ret = 1;
+	ret = 41;
 	if (copy_to_user((void *)args, io_args, sizeof(struct ioctl_args)))
 		goto fail_copy;
 
