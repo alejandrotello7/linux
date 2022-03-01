@@ -200,6 +200,7 @@ static long private_example_sum(unsigned long args)
 		
 fail_create:
 	__free_page(page);
+	printk(KERN_ALERT "fce:fail_create\n");
 fail_alloc:
 	return ret;
 		

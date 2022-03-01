@@ -62,7 +62,7 @@ int main(void)
                 "mov $2, %edi;"
                 );
 	int returnValue = 0;
-	returnValue = syscall(SYS_FASTCALL, args.index, 1, 2);
+	returnValue = syscall(SYS_FASTCALL, args.index, 1,2);
 	printf("Return value: %d\n", returnValue);
 
 	// Perform the actual fastcall.
