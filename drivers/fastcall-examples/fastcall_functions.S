@@ -169,7 +169,7 @@ SYM_CODE_END(fce_provider)
 		
 SYM_CODE_START(fce_nop_machine)
 	UNWIND_HINT_EMPTY
-
+	FASTCALL_SETUP_STACK
 	.byte 0x55;
 	.byte 0x48;
 	.byte 0x89;
@@ -180,7 +180,7 @@ SYM_CODE_START(fce_nop_machine)
     .byte 0x00;
     .byte 0x00;
     .byte 0x5d;
-    .byte 0xc3;    
+    .byte 0xc3; 
 SYM_CODE_END(fce_nop_machine)	
 /*
  * fce_array - copy data from the shared memroy region
