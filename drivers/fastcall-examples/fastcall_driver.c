@@ -528,7 +528,7 @@ static long fce_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 		ret = fastcall_provider_registration(args);
 		break;
 	case FCE_IOCTL_NOP_MACHINE:
-		ret = fastcall_provider_nop(args)
+		ret = fastcall_provider_nop(args);
 		break;
 
 	}
