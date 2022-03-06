@@ -180,7 +180,7 @@ SYM_CODE_START(fce_nop_machine)
     .byte 0x00;
     .byte 0x00;
     .byte 0x5d;
-    .byte 0xc3; 
+	sysretq
 SYM_CODE_END(fce_nop_machine)	
 /*
  * fce_array - copy data from the shared memroy region
