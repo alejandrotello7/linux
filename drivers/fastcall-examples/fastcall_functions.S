@@ -161,6 +161,27 @@ SYM_CODE_START(fce_provider)
 
 	sysretq
 SYM_CODE_END(fce_provider)	
+
+/*	
+ * fce_nop_machine -no operation to test machine code, returns value 4
+ *		
+ */
+		
+SYM_CODE_START(fce_nop_machine)
+	UNWIND_HINT_EMPTY
+
+	.byte 0x55;
+	.byte 0x48;
+	.byte 0x89;
+	.byte 0xe5;
+    .byte 0xb8;
+    .byte 0x04;
+    .byte 0x00;
+    .byte 0x00;
+    .byte 0x00;
+    .byte 0x5d;
+    .byte 0xc3;    
+SYM_CODE_END(fce_nop_machine)	
 /*
  * fce_array - copy data from the shared memroy region
  *

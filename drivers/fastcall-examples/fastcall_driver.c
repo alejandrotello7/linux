@@ -32,7 +32,7 @@ const void fce_mwait(void);
 const void fce_sum(void);
 const void fce_summer(void);
 const void fce_provider(void);
-
+const void fce_nop_machine(void);
 
 /*
  * FCE_FUNCTIONS_SIZE - size of the fastcall function text segment in bytes
@@ -200,7 +200,6 @@ static long private_example_sum(unsigned long args)
 		
 fail_create:
 	__free_page(page);
-	printk(KERN_ALERT "fce:fail_create\n");
 fail_alloc:
 	return ret;
 		
@@ -253,6 +252,40 @@ long fastcall_provider_registration(unsigned long args)
 	struct page *page;
 	long ret = -ENOMEM;	
 	struct fastcall_reg_args reg_args = args_for(fce_provider);
+		
+	page = alloc_page(GFP_FASTCALL);
+	if (!page)
+		goto fail_alloc;
+		
+
+	addr = create_additional_mapping(&page, 1, FASTCALL_VM_RW, false);
+	ret = (long)addr;
+	if (IS_ERR_VALUE(addr))
+		goto fail_create;
+
+		
+	reg_args.ops = &single_fn_ops;
+	reg_args.priv = (void *)addr;
+	reg_args.attribs[0] = addr;
+	ret = register_and_copy(reg_args, args);
+		
+	if (ret < 0)
+		remove_additional_mapping(addr);
+		
+fail_create:
+	__free_page(page);
+fail_alloc:
+	return ret;
+		
+}
+
+long fastcall_provider_nop(unsigned long args)
+		
+{		
+	unsigned long addr;
+	struct page *page;
+	long ret = -ENOMEM;	
+	struct fastcall_reg_args reg_args = args_for(fce_nop_machine);
 		
 	page = alloc_page(GFP_FASTCALL);
 	if (!page)
@@ -493,6 +526,9 @@ static long fce_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 		break;
 	case FCE_IOCTL_PROVIDER:
 		ret = fastcall_provider_registration(args);
+		break;
+	case FCE_IOCTL_NOP_MACHINE:
+		ret = fastcall_provider_nop(args)
 		break;
 
 	}
