@@ -169,7 +169,6 @@ SYM_CODE_END(fce_provider)
 		
 SYM_CODE_START(fce_nop_machine)
 	UNWIND_HINT_EMPTY
-	FASTCALL_SETUP_STACK
     .byte 0xb8;
     .byte 0x04;
     .byte 0x00;
