@@ -49,7 +49,7 @@ int main(void)
 	}
 
 	// Register a new fastcall function.
-	if (ioctl(fd, FCE_IOCTL_NOP_MACHINE, &args) < 0) {
+	if (ioctl(fd, FCE_IOCTL_PROVIDER, &args) < 0) {
 		perror("ioctl failed");
 		return 1;
 	}
@@ -64,7 +64,7 @@ int main(void)
                 "mov $2, %edi;"
                 );*/
 	int returnValue = 0;
-	returnValue = syscall(SYS_FASTCALL, args.index);
+	returnValue = syscall(SYS_FASTCALL, args.index,1,2);
 	printf("Return value: %d\n", returnValue);
 
 	// Perform the actual fastcall.

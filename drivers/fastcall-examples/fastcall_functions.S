@@ -132,10 +132,7 @@ SYM_CODE_END(fce_sum)
 		
 SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
-	.byte 0x55;
-	.byte 0x48;
-	.byte 0x89;
-	.byte 0xe5;
+	mov %rsp, %rbp
 	.byte 0x89;
 	.byte 0x7d;
 	.byte 0xec;
@@ -156,8 +153,7 @@ SYM_CODE_START(fce_provider)
 	.byte 0x8b;
 	.byte 0x45;
 	.byte 0xfc;
-	.byte 0x5d;
-	.byte 0xc3;
+
 
 	sysretq
 SYM_CODE_END(fce_provider)	
