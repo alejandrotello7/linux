@@ -155,7 +155,7 @@ SYM_CODE_START(fce_provider)
 	.byte 0x45;
 	.byte 0xfc;
 	//movq %rdi, %rsp
-	mov %rdi, %rcx
+	movq %rdi, %rcx
 
 
 
