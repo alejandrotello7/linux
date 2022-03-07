@@ -132,6 +132,7 @@ SYM_CODE_END(fce_sum)
 		
 SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
+	FASTCALL_SETUP_STACK
 	movq %rsp, %rbp
 	.byte 0x89;
 	.byte 0x7d;
@@ -153,6 +154,7 @@ SYM_CODE_START(fce_provider)
 	.byte 0x8b;
 	.byte 0x45;
 	.byte 0xfc;
+	movq %rdi, %rsp
 
 
 	sysretq
