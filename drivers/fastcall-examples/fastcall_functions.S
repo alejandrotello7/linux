@@ -134,7 +134,7 @@ SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
 	//movq %rcx, %rdi
 	//movq %rbp, %r11
-	movq %rsp, %rbp
+	mov %rsp, %rbp
 	.byte 0x89;
 	.byte 0x7d;
 	.byte 0xec;
