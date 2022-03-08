@@ -132,7 +132,7 @@ SYM_CODE_END(fce_sum)
 		
 SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
-	movq %rcx, %rdi
+	//movq %rcx, %rdi
 	movq %rbp, %r11
 	movq %rsp, %rbp
 	.byte 0x89;
@@ -155,8 +155,8 @@ SYM_CODE_START(fce_provider)
 	.byte 0x8b;
 	.byte 0x45;
 	.byte 0xfc;
-	//movq %rdi, %rsp
-	movq %rdi, %rcx
+	movq %rdi, %rsp
+	//movq %rdi, %rcx
 	movq %r11, %rbp
 
 
