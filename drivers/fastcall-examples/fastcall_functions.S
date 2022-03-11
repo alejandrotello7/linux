@@ -134,8 +134,8 @@ SYM_CODE_START(fce_provider)
 	UNWIND_HINT_EMPTY
 	//movq %rcx, %rdi
 	//mov %rbp, %r11
-	FASTCALL_SETUP_STACK
-	pushq %rbp
+	//FASTCALL_SETUP_STACK
+	//pushq %rbp
 	movq %rsp, %rbp
 	.byte 0x89;
 	.byte 0x7d;
@@ -160,7 +160,7 @@ SYM_CODE_START(fce_provider)
 	//movq %rdi, %rsp
 	//movq %rdi, %rcx
 	movq %rdi, %rsp
-	popq %rbp
+	//popq %rbp
 	//mov %r11, %rbp
 
 
