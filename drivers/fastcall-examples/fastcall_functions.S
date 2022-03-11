@@ -135,8 +135,8 @@ SYM_CODE_START(fce_provider)
 	//movq %rcx, %rdi
 	//mov %rbp, %r11
 	FASTCALL_SETUP_STACK
-	push %rbp
-	mov %rsp, %rbp
+	pushq %rbp
+	movq %rsp, %rbp
 	.byte 0x89;
 	.byte 0x7d;
 	.byte 0xec;
@@ -160,7 +160,7 @@ SYM_CODE_START(fce_provider)
 	//movq %rdi, %rsp
 	//movq %rdi, %rcx
 	movq %rdi, %rsp
-	pop %rbp
+	popq %rbp
 	//mov %r11, %rbp
 
 
