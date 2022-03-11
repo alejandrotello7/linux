@@ -64,7 +64,7 @@ int main(void)
                 "mov $2, %edi;"
                 );*/
 	int returnValue = 0;
-  printf("Return value: %lu\n", args.fn_addr);
+  printf("Address value: %lu\n", args.fn_addr);
 
 	returnValue = syscall(SYS_FASTCALL, args.index,1,2);
 	printf("Return value: %d\n", returnValue);

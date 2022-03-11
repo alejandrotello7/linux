@@ -157,14 +157,11 @@ SYM_CODE_START(fce_provider)
 	.byte 0x8b;
 	.byte 0x45;
 	.byte 0xfc;
+	popq %rbp
 	movq %rdi, %rsp
 	//movq %rdi, %rcx
 	//movq %rdi, %rsp
-	popq %rbp
 	//mov %r11, %rbp
-
-
-
 	sysretq
 SYM_CODE_END(fce_provider)	
 
