@@ -57,12 +57,6 @@ int main(void)
 	// Use the shared memory area.
 	//*((unsigned long *)args.shared_addr) = MAGIC;
 
-	/*long arg1 = 42;
-	long arg2= 10;
-	int returnValue = syscall(SYS_FASTCALL, args.index, arg1,arg2);*/
-  /*__asm__("mov $10, %esi;"
-                "mov $2, %edi;"
-                );*/
 	int returnValue = 0;
   printf("Address value: %lu\n", args.fn_addr);
 

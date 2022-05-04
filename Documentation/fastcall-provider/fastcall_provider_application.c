@@ -27,8 +27,8 @@ int main(void)
 			0xe8, 0x8b, 0x55, 0xec, 0x8b, 0x45, 0xe8, 0x01, 0xd0,
 			0x89, 0x45, 0xfc, 0x8b, 0x45, 0xfc, 0x5d, 0xc3 };
 
-	//args = malloc(sizeof(struct ioctl_args)+sizeof(code));
 	args.code_size = sizeof(code);
+	args.number_of_arguments = 2;
 	strcpy(args.binary_code, code);
 	printf("Value of binary_code[5]: %X\n", args.binary_code[5]);
 
