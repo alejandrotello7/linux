@@ -22,9 +22,9 @@ int main(void)
     const char *new_file = "test.txt";
     char temp_buffer[200];
     strcat(strcpy(temp_buffer, "objdump -d "), library_name);
-    strcat(temp_buffer, "| awk -v RS= '/^[[:xdigit:]]+ <");
+    strcat(temp_buffer, " | awk -v RS= \'/^[[:xdigit:]]+ <");
     strcat(temp_buffer, function_name);
-    strcat(temp_buffer, ">/ | cut -f 2 | grep -v \':\' > ");
+    strcat(temp_buffer, ">/\' | cut -f 2 | grep -v \':\' > ");
     strcat(temp_buffer, new_file);
     printf("%s\n", temp_buffer);
     system(temp_buffer);
