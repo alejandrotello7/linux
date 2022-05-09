@@ -15,14 +15,23 @@ int main(void)
 	char c;
 	fptr1 = fopen("./test.txt", "r");
 	fptr2 = fopen("./new.txt", "w");
-	do {
+
+	/*do {
 		fputs(".byte ", fptr2);
-		c = fgetc(fptr1);
+        c = fgetc(fptr1);
 		fputc(c, fptr2);
 		c = fgetc(fptr1);
 		fputc(c, fptr2);
 		fputs(";", fptr2);
-	} while (c != EOF);
+	} while (c != EOF);*/
+
+	c = fgetc(fptr1);
+	while (c != EOF) {
+		if (c != ' ') {
+			fputc(c, fptr2);
+			c = fgetc(fptr1);
+		}
+	}
 
 	return 0;
 }
