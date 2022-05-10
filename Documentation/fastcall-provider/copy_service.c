@@ -16,13 +16,13 @@ int main(void)
 {
 	FILE *fptr1, *fptr2;
 	char c;
-    const char *library_path = "~/dev/summer-lib/";
+    const char *library_path = "/home/atello/dev/summer-lib/";
     const char *library_name = "libsummermodule.so";
 	const char *function_name = "summer_module";
     const char *new_file = "test.txt";
     char temp_buffer[200];
-    char library_path_buffer[100];
-    char new_file_buffer[100];
+    char library_path_buffer[200];
+    char new_file_buffer[200];
 
 
     strcat(strcpy(temp_buffer, "objdump -d "), library_name);
@@ -32,8 +32,8 @@ int main(void)
     strcat(temp_buffer, new_file);
     printf("%s\n", temp_buffer);
     system(temp_buffer);
-    strcat(strcpy(library_path_buffer,library_path), "test.txt");
-    strcat(strcpy(new_file_buffer,library_path), "new.txt");
+    strcat(strcpy(library_path_buffer,library_path), "temp_copied_binary.txt");
+    strcat(strcpy(new_file_buffer,library_path), "copied_binary.txt");
 
 	fptr1 = fopen(library_path_buffer, "r");
 	fptr2 = fopen(new_file_buffer, "w");
