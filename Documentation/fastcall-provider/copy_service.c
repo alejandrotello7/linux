@@ -19,21 +19,22 @@ int main(void)
     const char *library_path = "/home/atello/dev/summer-lib/";
     const char *library_name = "libsummermodule.so";
 	const char *function_name = "summer_module";
-    const char *new_file = "test.txt";
+    const char *new_file = "temp_copied_binary.txt";
     char temp_buffer[200];
     char library_path_buffer[200];
     char temp_file_buffer[200];
     char new_file_buffer[200];
 
     strcat(strcpy(library_path_buffer, "cd "), library_path);
-    strcat(strcpy(temp_buffer, "objdump -d "), library_name);
-    strcat(temp_buffer, " | awk -v RS= \'/^[[:xdigit:]]+ <");
-    strcat(temp_buffer, function_name);
-    strcat(temp_buffer, ">/\' | cut -f 2 | grep -v \':\' > ");
-    strcat(temp_buffer, new_file);
-    printf("%s\n", temp_buffer);
+    strcat(library_path_buffer, "&& objdump -d ");
+    strcat(library_path_buffer, library_name);
+    strcat(library_path_buffer, " | awk -v RS= \'/^[[:xdigit:]]+ <");
+    strcat(library_path_buffer, function_name);
+    strcat(library_path_buffer, ">/\' | cut -f 2 | grep -v \':\' > ");
+    strcat(library_path_buffer, new_file);
+    printf("%s\n", library_path_buffer);
     system(library_path_buffer);
-    system(temp_buffer);
+
     strcat(strcpy(temp_file_buffer,library_path), "temp_copied_binary.txt");
     strcat(strcpy(new_file_buffer,library_path), "copied_binary.txt");
 
