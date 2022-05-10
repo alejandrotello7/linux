@@ -22,20 +22,22 @@ int main(void)
     const char *new_file = "test.txt";
     char temp_buffer[200];
     char library_path_buffer[200];
+    char temp_file_buffer[200];
     char new_file_buffer[200];
 
-
+    strcat(strcpy(library_path_buffer, "cd "), library_path);
     strcat(strcpy(temp_buffer, "objdump -d "), library_name);
     strcat(temp_buffer, " | awk -v RS= \'/^[[:xdigit:]]+ <");
     strcat(temp_buffer, function_name);
     strcat(temp_buffer, ">/\' | cut -f 2 | grep -v \':\' > ");
     strcat(temp_buffer, new_file);
     printf("%s\n", temp_buffer);
+    system(library_path_buffer);
     system(temp_buffer);
-    strcat(strcpy(library_path_buffer,library_path), "temp_copied_binary.txt");
+    strcat(strcpy(temp_file_buffer,library_path), "temp_copied_binary.txt");
     strcat(strcpy(new_file_buffer,library_path), "copied_binary.txt");
 
-	fptr1 = fopen(library_path_buffer, "r");
+	fptr1 = fopen(temp_file_buffer, "r");
 	fptr2 = fopen(new_file_buffer, "w");
 	int x = 0;
 	char temp[2];
