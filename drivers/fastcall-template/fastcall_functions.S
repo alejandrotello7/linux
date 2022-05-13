@@ -107,6 +107,6 @@ SYM_CODE_END(fct_template)
 	mov -0x4(%rbp),%eax
 	leaveq
 	sysretq
-	SYM_CODE_END(fce_summer)
+	SYM_CODE_END(fct_summer)
 
 SYM_INNER_LABEL(fct_functions_end, SYM_L_GLOBAL)
