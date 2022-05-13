@@ -11,7 +11,8 @@
 #include <asm/unwind_hints.h>
 #include <asm/smap.h>
 #include <asm/fastcall_module.h>
-
+#define ARG1 %rsi
+#define ARG2 %rdx
 .text
 
 SYM_INNER_LABEL(fct_functions_start, SYM_L_GLOBAL)
