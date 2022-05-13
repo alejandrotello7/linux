@@ -63,7 +63,7 @@ int main(void)
 	int returnValue = 0;
   printf("Address value: %lu\n", args.fn_addr);
 
-	returnValue = syscall(SYS_FASTCALL, args.index,1,2);
+	returnValue = syscall(SYS_FASTCALL, args.index,10,2);
 	printf("Return value: %d\n", returnValue);
 
 	// Perform the actual fastcall.
