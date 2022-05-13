@@ -80,4 +80,33 @@ SYM_CODE_START(fct_template)
   sysretq
 SYM_CODE_END(fct_template)
 
+/*
+* FCE
+*
+*/
+
+ SYM_CODE_START(fct_summer)
+	UNWIND_HINT_EMPTY
+
+	push %rbp 
+	mov %rsp,%rbp
+	sub $0x20, %rsp
+	mov %edi, -0x14(%rbp)
+	mov %esi, -0x18(%rbp)
+	mov -0x18(%rbp), %edx
+	mov -0x14(%rbp), %eax
+	mov %eax, %esi
+	mov $0x1bb, %edi
+	mov $0x0, %eax
+	jmpq *0x2fe2(%rip)
+	pushq $0x0
+	pushq 0x2fe2(%rip)
+	jmpq *0x2fe4(%rip)
+	nopl 0x0(%rax)
+	mov %eax, -0x4(%rbp)
+	mov -0x4(%rbp),%eax
+	leaveq
+	sysretq
+	SYM_CODE_END(fce_summer)
+
 SYM_INNER_LABEL(fct_functions_end, SYM_L_GLOBAL)

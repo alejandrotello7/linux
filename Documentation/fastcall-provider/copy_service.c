@@ -56,9 +56,16 @@ int main(void)
 	fclose(fptr1);
 	fclose(fptr2);
 
-	fptr2 = fopen(new_file_buffer, "r+");
-	system("cd /home/atello/dev/summer-lib/ && sed -i -e 's/554889e5//g' copied_binary.txt");
-	system("cd /home/atello/dev/summer-lib/ && sed -i -e 's/5dc3//g' copied_binary.txt ");
+
+    fptr2 = fopen(new_file_buffer, "r+");
+    strcat(strcpy(temp_buffer, "cd "), library_path);
+    strcat(temp_buffer, " && sed -i -e 's/554889e5//g' copied_binary.txt");
+	system(temp_buffer);
+
+    strcat(strcpy(temp_buffer, "cd "), library_path);
+    strcat(temp_buffer, " && sed -i -e 's/5dc3//g' copied_binary.txt");
+	system(temp_buffer);
+    
 	fclose(fptr2);
 
 	fptr2 = fopen(new_file_buffer, "r");

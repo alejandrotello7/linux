@@ -6,7 +6,7 @@
 config FASTCALL_TEMPLATE
 	tristate "Template for fastcall-based drivers"
 	depends on FASTCALL
-	default n
+	default y
 	help
 	  To learn more about this template, read the
 	  drivers/fastcall-template/Readme.md .

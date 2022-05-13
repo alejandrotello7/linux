@@ -19,6 +19,7 @@ MODULE_DESCRIPTION("A template for fastcall-based drivers.");
  */
 void fct_functions_start(void);
 void fct_template(void);
+void fct_summer(void);
 void fct_functions_end(void);
 
 /*
@@ -115,7 +116,7 @@ static long template_handler(unsigned long args)
 	struct fastcall_reg_args reg_args = {
 		.pages = function_pages,
 		.num = FUNCTION_PAGES,
-		.off = fct_template - fct_functions_start,
+		.off = fct_summer - fct_functions_start,
 		.module = THIS_MODULE,
 	};
 	static struct fastcall_fn_ops template_fn_ops = {
