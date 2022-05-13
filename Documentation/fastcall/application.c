@@ -12,9 +12,9 @@
 #define SYS_FASTCALL (442)
 
 // The ioctl definitions are the same as in the kernel code.
-//#define IOCTL_TYPE (0xDC)
+#define IOCTL_TYPE (0xDC)
 //#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 0, struct ioctl_args))
-#define FCE_TYPE 0xDE
+//#define FCE_TYPE 0xDE
 #define FCE_IOCTL(cmd) (_IOR(FCE_TYPE, cmd, struct ioctl_args))
 #define FCE_IOCTL_NOOP (FCE_IOCTL(0))
 #define FCE_IOCTL_STACK (FCE_IOCTL(1))
@@ -24,9 +24,12 @@
 #define FCE_IOCTL_SUMMER (FCE_IOCTL(8))
 #define FCE_IOCTL_PROVIDER (FCE_IOCTL(9))
 #define FCE_IOCTL_NOP_MACHINE (FCE_IOCTL(10))
+#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 0, struct ioctl_args))
 
 
-#define DEVICE_PATH ("/dev/fastcall-examples")
+//#define DEVICE_PATH ("/dev/fastcall-examples")
+#define DEVICE_PATH ("/dev/fastcall-template")
+
 #define MAGIC (10)
 
 struct ioctl_args {
@@ -49,7 +52,7 @@ int main(void)
 	}
 
 	// Register a new fastcall function.
-	if (ioctl(fd, FCE_IOCTL_PROVIDER, &args) < 0) {
+	if (ioctl(fd, IOCTL_TEMPLATE, &args) < 0) {
 		perror("ioctl failed");
 		return 1;
 	}
