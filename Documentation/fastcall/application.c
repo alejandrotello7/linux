@@ -35,7 +35,7 @@
 struct ioctl_args {
 	unsigned long fn_addr;
 	unsigned long fn_len;
-	//unsigned long shared_addr;
+	unsigned long shared_addr;
 	unsigned index;
 };
 
