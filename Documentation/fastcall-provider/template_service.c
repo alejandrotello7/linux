@@ -21,7 +21,7 @@ int main(void)
     /* 
      Copies files from /drivers/fastcall-template to new directory
     */
-	system("cd /usr/local/src/linux/drivers/fastcall-template/ && cp fastcall_driver.c .");
-    
+	system("cp /usr/local/src/linux/drivers/fastcall-template/fastcall_driver.c /usr/local/src/linux/drivers/fastcall-template/fastcall_functions.S .");
+
 	return 0;
 }
