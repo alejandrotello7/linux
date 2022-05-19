@@ -65,14 +65,13 @@ int main(void)
     strcat(strcpy(temp_buffer, "cd "), library_path);
     strcat(temp_buffer, " && sed -i -e 's/5dc3//g' copied_binary.txt");
 	system(temp_buffer);
-    
+
 	fclose(fptr2);
 
 	fptr2 = fopen(new_file_buffer, "r");
 	fptr3 = fopen(new_file_buffer_copy, "w");
-
-	fputs("UNWIND_HINT_EMPTY \nFASTCALL_SETUP_STACK \npushq %rbp \npushq %rdi \nmovq %rsp, %rbp\nmovq ARG1, %rdi \nmovq ARG2, %rsi",
-	      fptr3);
+    fputs("/* \n * New fastcall function \n */ \n",fptr3);
+	fputs("SYM_CODE_START(new_function)\nUNWIND_HINT_EMPTY \nFASTCALL_SETUP_STACK \npushq %rbp \npushq %rdi \nmovq %rsp, %rbp\nmovq ARG1, %rdi \nmovq ARG2, %rsi\n",fptr3);
 	c = fgetc(fptr2);
 	while (c != EOF) {
 		if (c != ' ' && c != '\n') {
@@ -90,7 +89,7 @@ int main(void)
 		c = fgetc(fptr2);
 	}
 
-	fputs("popq %rdi \npopq %rbp \nmovq %rdi, %rsp \nsysretq", fptr3);
+	fputs("popq %rdi \npopq %rbp \nmovq %rdi, %rsp \nsysretq\nSYM_CODE_END(new_function)\n", fptr3);
 	fclose(fptr2);
 	fclose(fptr3);
 
