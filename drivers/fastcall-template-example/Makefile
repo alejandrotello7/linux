@@ -2,7 +2,8 @@
 
 # fastcall_template_example.o is the resulting object file
 # for the module ...
-obj-$(CONFIG_FASTCALL_TEMPLATE_EXAMPLE)	+= fastcall_template_example.o
+#obj-$(CONFIG_FASTCALL_TEMPLATE_EXAMPLE)	+= fastcall_template_example.o
+obj-m	+= fastcall_template_example.o
 KVERSION = $(shell uname -r)
 # ... it contains these other object files,
 # the user-facing fastcall_driver.c and the
