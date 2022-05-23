@@ -30,7 +30,7 @@ void fct_functions_end(void);
  * FUNCTION_PAGES - number of pages the fastcall function segment would span
  */
 #define FUNCTION_PAGES ((FUNCTION_SIZE - 1) / PAGE_SIZE + 1)
-#define DEVICE_NAME ("/fastcall-template/example1");
+#define DEVICE_NAME ("/fastcall-template/example1")
 /*
  * IOCTL_TYPE - identifier for the ioctl handler of this module
  *
