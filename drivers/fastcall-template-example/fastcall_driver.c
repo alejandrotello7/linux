@@ -18,6 +18,7 @@ MODULE_DESCRIPTION("A template for fastcall-based drivers.");
  * Function labels from fastcall_functions.S .
  */
 void fct_functions_start(void);
+void new_function(void);
 void fct_template(void);
 void fct_functions_end(void);
 
@@ -29,7 +30,7 @@ void fct_functions_end(void);
  * FUNCTION_PAGES - number of pages the fastcall function segment would span
  */
 #define FUNCTION_PAGES ((FUNCTION_SIZE - 1) / PAGE_SIZE + 1)
-#define DEVICE_NAME ("fastcall-template")
+#define DEVICE_NAME ("/fastcall-template/example1");
 /*
  * IOCTL_TYPE - identifier for the ioctl handler of this module
  *
@@ -115,7 +116,7 @@ static long template_handler(unsigned long args)
 	struct fastcall_reg_args reg_args = {
 		.pages = function_pages,
 		.num = FUNCTION_PAGES,
-		.off = fct_template - fct_functions_start,
+		.off = new_function - fct_functions_start,
 		.module = THIS_MODULE,
 	};
 	static struct fastcall_fn_ops template_fn_ops = {

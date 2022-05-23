@@ -11,7 +11,8 @@
 #include <asm/unwind_hints.h>
 #include <asm/smap.h>
 #include <asm/fastcall_module.h>
-
+#define ARG1 %rsi
+#define ARG2 %rdx
 .text
 
 SYM_INNER_LABEL(fct_functions_start, SYM_L_GLOBAL)
@@ -78,6 +79,46 @@ SYM_CODE_START(fct_template)
    * The return value is in %rax.
    */
   sysretq
+Tester
 SYM_CODE_END(fct_template)
+
+/*
+* FCE
+*
+*/
+
+ SYM_CODE_START(fct_summer)
+	UNWIND_HINT_EMPTY
+ 	FASTCALL_SETUP_STACK
+	pushq %rbp
+	pushq %rdi
+	movq %rsp, %rbp
+	movq ARG1, %rdi
+	movq ARG2, %rsi
+	.byte 0x89;
+	.byte 0x7d;
+	.byte 0xec;
+	.byte 0x89;
+	.byte 0x75;
+	.byte 0xe8;
+	.byte 0x8b;
+	.byte 0x55;
+	.byte 0xec;
+	.byte 0x8b;
+	.byte 0x45;
+	.byte 0xe8;
+	.byte 0x01;
+	.byte 0xd0;
+	.byte 0x89;
+	.byte 0x45;
+	.byte 0xfc;
+	.byte 0x8b;
+	.byte 0x45;
+	.byte 0xfc;
+	popq %rdi
+	popq %rbp
+	movq %rdi, %rsp
+	sysretq
+	SYM_CODE_END(fct_summer)
 
 SYM_INNER_LABEL(fct_functions_end, SYM_L_GLOBAL)

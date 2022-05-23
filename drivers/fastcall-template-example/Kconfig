@@ -3,10 +3,11 @@
 # This config entry allows to build this driver
 # into the kernel image or as a module.
 # Of course, it depends on fastcall.
-config FASTCALL_TEMPLATE
+config FASTCALL_TEMPLATE_EXAMPLE
 	tristate "Template for fastcall-based drivers"
 	depends on FASTCALL
 	default n
 	help
 	  To learn more about this template, read the
+	  drivers/fastcall-template/Readme.md .
 	  drivers/fastcall-template/Readme.md .
