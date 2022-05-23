@@ -117,7 +117,7 @@ int main(void)
 		33,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
-		"#define DEVICE_NAME (\"/fastcall-template/example1\");\n");
+		"#define DEVICE_NAME (\"/fastcall-template/example1\")\n");
 
 	/* Changes start function of the driver */
 	replace_line_service(
