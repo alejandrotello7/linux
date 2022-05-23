@@ -9,4 +9,4 @@ KVERSION = $(shell uname -r)
 # fastcall_functions.S for the actual fastcall functions.
 fastcall_template_example-y	+= fastcall_driver.o fastcall_functions.o
 all:
-        make -C /lib/modules/$(KVERSION)/build M=$(PWD) modules
+	make -C /lib/modules/$(KVERSION)/build M=$(PWD) modules
