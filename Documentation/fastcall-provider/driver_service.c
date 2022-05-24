@@ -18,7 +18,7 @@
 void add_line_service(int line_number, char filename[], char temp_filename[],
 		      char newline[])
 {
-	FILE *driverptr, *temp, *binaryptr;
+	FILE *driverptr, *temp;
 	char buffer[MAX_LINE];
 
 	driverptr = fopen(filename, "r");
@@ -62,7 +62,7 @@ void add_line_service(int line_number, char filename[], char temp_filename[],
 void replace_line_service(int line_number, char filename[],
 			  char temp_filename[], char newline[])
 {
-	FILE *driverptr, *temp, *binaryptr;
+	FILE *driverptr, *temp;
 	char buffer[MAX_LINE];
 
 	driverptr = fopen(filename, "r");
@@ -76,11 +76,11 @@ void replace_line_service(int line_number, char filename[],
 		// if we've reached the end of the file, stop reading
 		if (feof(driverptr)) {
 			keep_reading = false;
-            fputs(buffer, temp);
+			printf("%i\n", current_line);
+			//fputs(buffer, temp);
 		}
 		// if we've reached the line to write the new line of text, write the line
-		// of text to the temp file, followed by the line of text currently in the
-		// original file at this line
+		// of text to the temp file
 		else if (current_line == line_number) {
 			fputs(newline, temp);
 		}
@@ -117,7 +117,7 @@ int main(void)
 		33,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
-		"#define DEVICE_NAME (\"/fastcall-template/example1\")\n");
+		"#define DEVICE_NAME (\"fastcall-template/example1\")\n");
 
 	/* Changes start function of the driver */
 	replace_line_service(
@@ -139,10 +139,26 @@ int main(void)
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____Makefile",
 		"fastcall_template_example-y	+= fastcall_driver.o fastcall_functions.o\n");
 
+	/* Changes Kconfig file */
     replace_line_service(
 		6,
 		"/usr/local/src/linux/drivers/fastcall-template-example/Kconfig",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____Kconfig",
 		"config FASTCALL_TEMPLATE_EXAMPLE\n");
+
+	/* Adds argument definition to functions.S file */
+	add_line_service(
+		14,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
+		"#define ARG1 %rsi\n");	
+	
+	add_line_service(
+		15,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
+		"#define ARG2 %rdx\n");			
+			
+
 	return 0;
 }
