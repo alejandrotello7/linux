@@ -13,9 +13,10 @@
 #include <asm/fastcall_module.h>
 #define ARG1 %rsi
 #define ARG2 %rdx
+
 .text
 
-SYM_INNER_LABEL(fct_functions_start, SYM_L_GLOBAL)
+SYM_INNER_LABEL(fct_example_functions_start, SYM_L_GLOBAL)
 
 /*
  * fct_template - demonstrate the possibilites of fastcall functions
@@ -75,7 +76,7 @@ movq %rdi, %rsp
 sysretq
 SYM_CODE_END(new_function)
 
-SYM_CODE_START(fct_template)
+SYM_CODE_START(fct_example_template)
   // This prevents complains during compilation.
 	UNWIND_HINT_EMPTY
 
@@ -116,6 +117,6 @@ SYM_CODE_START(fct_template)
    * The return value is in %rax.
    */
   sysretq
-SYM_CODE_END(fct_template)
+SYM_CODE_END(fct_example_template)
 
-SYM_INNER_LABEL(fct_functions_end, SYM_L_GLOBAL)
+SYM_INNER_LABEL(fct_example_functions_end, SYM_L_GLOBAL)

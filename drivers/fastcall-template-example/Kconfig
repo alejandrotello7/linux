@@ -10,4 +10,3 @@ config FASTCALL_TEMPLATE_EXAMPLE
 	help
 	  To learn more about this template, read the
 	  drivers/fastcall-template/Readme.md .
-	  drivers/fastcall-template/Readme.md .

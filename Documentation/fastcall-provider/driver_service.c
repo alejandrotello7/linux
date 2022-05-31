@@ -76,8 +76,9 @@ void replace_line_service(int line_number, char filename[],
 		// if we've reached the end of the file, stop reading
 		if (feof(driverptr)) {
 			keep_reading = false;
-			printf("%i\n", current_line);
-			//fputs(buffer, temp);
+			if (current_line == line_number) {
+				fputs(newline, temp);
+			}
 		}
 		// if we've reached the line to write the new line of text, write the line
 		// of text to the temp file
@@ -158,7 +159,38 @@ int main(void)
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
 		"#define ARG2 %rdx\n");			
-			
+
+	/* Changes internal labels for start and end of function.S file */
+	replace_line_service(
+		19,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
+		"SYM_INNER_LABEL(fct_example_functions_start, SYM_L_GLOBAL)\n");		
+
+	replace_line_service(
+		122,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
+		"SYM_INNER_LABEL(fct_example_functions_end, SYM_L_GLOBAL)\n");		
+
+	replace_line_service(
+		79,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
+		"SYM_CODE_START(fct_example_template)\n");	
+
+	replace_line_service(
+		120,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
+		"SYM_CODE_END(fct_example_template)\n");
+
+	/* Adds new module to /linux/drivers Makefile */
+	add_line_service(
+		18,
+		"/usr/local/src/linux/drivers/Makefile",
+		"/usr/local/src/linux/drivers/temp____Makefile",
+		"obj-y				+= fastcall-template-example/\n");			
 
 	return 0;
 }
