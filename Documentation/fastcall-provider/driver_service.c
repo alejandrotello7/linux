@@ -190,7 +190,13 @@ int main(void)
 		18,
 		"/usr/local/src/linux/drivers/Makefile",
 		"/usr/local/src/linux/drivers/temp____Makefile",
-		"obj-y				+= fastcall-template-example/\n");			
+		"obj-y				+= fastcall-template-example/\n");
 
+	/* Adds new module to /linux/drivers Kconfig */
+	add_line_service(
+		246,
+		"/usr/local/src/linux/drivers/Kconfig",
+		"/usr/local/src/linux/drivers/temp____Kconfig",
+		"source \"drivers/fastcall-template-example/Kconfig\"\n");
 	return 0;
 }
