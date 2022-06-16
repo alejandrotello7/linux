@@ -49,34 +49,41 @@ pushq %rbp
 pushq %rdi 
 movq %rsp, %rbp
 movq ARG1, %rdi 
-movq ARG2, %rsi
+.byte 0xf3;
+.byte 0x0f;
+.byte 0x1e;
+.byte 0xfa;
 .byte 0x89;
 .byte 0x7d;
-.byte 0xec;
-.byte 0x89;
-.byte 0x75;
-.byte 0xe8;
-.byte 0x8b;
-.byte 0x55;
-.byte 0xec;
+.byte 0xfc;
 .byte 0x8b;
 .byte 0x45;
-.byte 0xe8;
-.byte 0x01;
-.byte 0xd0;
+.byte 0xfc;
+.byte 0x0f;
+.byte 0xaf;
+.byte 0xc0;
 .byte 0x89;
 .byte 0x45;
 .byte 0xfc;
 .byte 0x8b;
 .byte 0x45;
 .byte 0xfc;
+.byte 0x0f;
+.byte 0xaf;
+.byte 0xc0;
+.byte 0x89;
+.byte 0x45;
+.byte 0xfc;
+.byte 0x8b;
+.byte 0x45;
+SYM_CODE_START(fct_example_template)
 popq %rdi 
 popq %rbp 
 movq %rdi, %rsp 
 sysretq
 SYM_CODE_END(new_function)
 
-SYM_CODE_START(fct_example_template)
+SYM_CODE_START(fct_template)
   // This prevents complains during compilation.
 	UNWIND_HINT_EMPTY
 
@@ -110,13 +117,12 @@ SYM_CODE_START(fct_example_template)
   movq (%rdi), %rax
 
   // Restore user %rsp.
-  movq (%rsp), %rsp
+SYM_CODE_END(fct_example_template)
 
-  /*
+SYM_INNER_LABEL(fct_example_functions_end, SYM_L_GLOBAL)
    * We always have to return to user mode.
    * The return value is in %rax.
    */
   sysretq
-SYM_CODE_END(fct_example_template)
+SYM_CODE_END(fct_template)
 
-SYM_INNER_LABEL(fct_example_functions_end, SYM_L_GLOBAL)
