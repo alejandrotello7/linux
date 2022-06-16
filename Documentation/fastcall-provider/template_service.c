@@ -38,7 +38,7 @@ int main(void)
 	char *library_path_buffer = calloc(200, sizeof *library_path_buffer);
 	char c;
 
-	//line to add
+	//line to adds
 	int write_line = 40;
 
 	//Creates new directory within /drivers/
