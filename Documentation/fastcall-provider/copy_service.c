@@ -19,14 +19,22 @@
 #include <stdlib.h>
 #include <errno.h>
 
+void concatenation_service(char buffer[200], char *text)
+{
+	strcat(buffer, text);
+};
+
 int main(void)
 {
 	FILE *fptr1, *fptr2, *fptr3;
 	char c;
-	const char *library_path = "/home/atello/dev/summer-lib/";
+	/*const char *library_path = "/home/atello/dev/summer-lib/";
 	const char *library_name = "libsummermodule.so";
-	const char *function_name = "summer_module";
-	const int number_of_arguments = 2;
+	const char *function_name = "summer_module";*/
+	const char *library_path = "/home/atello/dev/hello-lib/";
+	const char *library_name = "libmycode.so";
+	const char *function_name = "tripled";
+	const int number_of_arguments = 1;
 	const char *new_file = "temp_copied_binary.txt";
 	char temp_buffer[200];
 	char library_path_buffer[200];

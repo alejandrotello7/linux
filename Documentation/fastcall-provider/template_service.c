@@ -1,6 +1,12 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
- * template_service - service for copying file
+ * template service - Creates new directory and copies files from template directory
+ * 
+ * The following parameters are required:
+ * @char *library_name	- name of the shared library.
+ * @char *function_name	- name of the desired function.
+ * @numer_of_arguments - number of arguments to pass to the function.
+ * 
  */
 
 #include <fcntl.h>
@@ -15,6 +21,11 @@
 #define FILENAME_SIZE 2048
 #define MAX_LINE 4096
 
+void concatenation_service(char buffer[200], char *text)
+{
+	strcat(buffer, text);
+};
+
 int main(void)
 {
 	FILE *file, *temp, *binaryptr;
@@ -23,7 +34,8 @@ int main(void)
 	char temp_filename[FILENAME_SIZE] =
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S";
 	char buffer[MAX_LINE];
-	char newline[MAX_LINE] = "TESTER \n Tester\n";
+	char *library_path = "/home/atello/dev/hello-lib/copied_binary_new.txt";
+	char *library_path_buffer = calloc(200, sizeof *library_path_buffer);
 	char c;
 
 	//line to add
@@ -37,12 +49,14 @@ int main(void)
     /usr/local/src/linux/drivers/fastcall-template/fastcall_functions.S \
     /usr/local/src/linux/drivers/fastcall-template/Makefile \
     /usr/local/src/linux/drivers/fastcall-template/Kconfig \
-    /home/atello/dev/summer-lib/copied_binary_new.txt\
+    /home/atello/dev/hello-lib/copied_binary_new.txt\
     /usr/local/src/linux/drivers/fastcall-template-example");
 
 	//Copies desired function's binary from shared library
-	system("cp /home/atello/dev/summer-lib/copied_binary_new.txt \
-    /usr/local/src/linux/drivers/fastcall-template-example");
+	concatenation_service(library_path_buffer, "cp ");
+	concatenation_service(library_path_buffer, library_path);
+	concatenation_service(library_path_buffer, " /usr/local/src/linux/drivers/fastcall-template-example");
+	system(library_path_buffer);
 
 	//Copies binary to buffer
 	char *source = NULL;
