@@ -16,6 +16,9 @@ obj-y				+= fastcall-in-c/
 obj-y				+= fastcall-template/
 obj-y				+= fastcall-provider/
 obj-y				+= fastcall-template-example/
+obj-y				+= fastcall-template-example/
+obj-y				+= fastcall-template-example/
+obj-y				+= fastcall-template-example/
 
 # GPIO must come after pinctrl as gpios may need to mux pins etc
 obj-$(CONFIG_PINCTRL)		+= pinctrl/
@@ -192,6 +195,9 @@ obj-$(CONFIG_SIOX)		+= siox/
 obj-$(CONFIG_GNSS)		+= gnss/
 obj-$(CONFIG_INTERCONNECT)	+= interconnect/
 obj-$(CONFIG_COUNTER)		+= counter/
+obj-$(CONFIG_MOST)		+= most/
+obj-$(CONFIG_MOST)		+= most/
+obj-$(CONFIG_MOST)		+= most/
 obj-$(CONFIG_MOST)		+= most/
 obj-$(CONFIG_MOST)		+= most/
 obj-$(CONFIG_MOST)		+= most/

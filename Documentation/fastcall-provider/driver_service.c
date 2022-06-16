@@ -106,6 +106,21 @@ void replace_line_service(int line_number, char filename[],
 
 int main(void)
 {
+	//Counts how many lines are in the function's binary
+	FILE *fptr1 = fopen("/usr/local/src/linux/drivers/fastcall-template-example/copied_binary_new.txt", "r");
+	char ch;
+	int number_of_lines = 0;
+	while(!feof(fptr1))
+	{
+  		ch = fgetc(fptr1);
+  		if(ch == '\n')
+  		{
+    		number_of_lines++;
+  		}
+	}
+	//added 3 extra for the argument definition
+	number_of_lines+=3;
+
 	/* Adds function label to the driver */
 	add_line_service(
 		21,
@@ -118,7 +133,7 @@ int main(void)
 		33,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
-		"#define DEVICE_NAME (\"fastcall-template/example1\")\n");
+		"#define DEVICE_NAME (\"fastcall-templates/example1\")\n");
 
 	/* Changes start function of the driver */
 	replace_line_service(
@@ -168,19 +183,19 @@ int main(void)
 		"SYM_INNER_LABEL(fct_example_functions_start, SYM_L_GLOBAL)\n");		
 
 	replace_line_service(
-		122,
+		83+number_of_lines,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
 		"SYM_INNER_LABEL(fct_example_functions_end, SYM_L_GLOBAL)\n");		
 
 	replace_line_service(
-		79,
+		40+number_of_lines,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
 		"SYM_CODE_START(fct_example_template)\n");	
 
 	replace_line_service(
-		120,
+		81+number_of_lines,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_functions.S",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_functions.S",
 		"SYM_CODE_END(fct_example_template)\n");

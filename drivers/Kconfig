@@ -244,7 +244,13 @@ source "drivers/fastcall-in-c/Kconfig"
 
 source "drivers/fastcall-template/Kconfig"
 source "drivers/fastcall-template-example/Kconfig"
+source "drivers/fastcall-template-example/Kconfig"
+source "drivers/fastcall-template-example/Kconfig"
+source "drivers/fastcall-template-example/Kconfig"
 
 source "drivers/fastcall-provider/Kconfig"
 
+endmenu
+endmenu
+endmenu
 endmenu
