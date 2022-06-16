@@ -120,6 +120,7 @@ SYM_CODE_START(fct_template)
 SYM_CODE_END(fct_example_template)
 
 SYM_INNER_LABEL(fct_example_functions_end, SYM_L_GLOBAL)
+   /*
    * We always have to return to user mode.
    * The return value is in %rax.
    */
