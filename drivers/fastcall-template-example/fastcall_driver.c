@@ -39,7 +39,7 @@ void fct_functions_end(void);
  */
 #define IOCTL_TYPE (0xDC)
 // For more ioctl handlers increment the nr parameter (0 here).
-#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 0, struct ioctl_args))
+#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 1, struct ioctl_args))
 
 /*
  * ioctl_args - information returned from the ioctl handler
