@@ -49,10 +49,6 @@ pushq %rbp
 pushq %rdi 
 movq %rsp, %rbp
 movq ARG1, %rdi 
-.byte 0xf3;
-.byte 0x0f;
-.byte 0x1e;
-.byte 0xfa;
 .byte 0x89;
 .byte 0x7d;
 .byte 0xfc;
