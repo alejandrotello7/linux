@@ -116,7 +116,7 @@ static long template_handler(unsigned long args)
 	struct fastcall_reg_args reg_args = {
 		.pages = function_pages,
 		.num = FUNCTION_PAGES,
-		.off = new_function - fct_functions_start,
+		.off = new_function - fct_example_functions_start,
 		.module = THIS_MODULE,
 	};
 	static struct fastcall_fn_ops template_fn_ops = {
@@ -272,7 +272,7 @@ static int __init fastcall_init(void)
 		addr = kmap(function_pages[page_id]);
 		// Do not copy past fct_functions_end
 		count = min(FUNCTION_SIZE - page_id * PAGE_SIZE, PAGE_SIZE);
-		memcpy(addr, fct_functions_start + page_id * PAGE_SIZE, count);
+		memcpy(addr, fct_example_functions_start + page_id * PAGE_SIZE, count);
 		kunmap(function_pages[page_id]);
 	}
 
