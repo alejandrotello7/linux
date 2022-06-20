@@ -17,15 +17,15 @@ MODULE_DESCRIPTION("A template for fastcall-based drivers.");
 /*
  * Function labels from fastcall_functions.S .
  */
-void fct_functions_start(void);
+void fct_example_functions_start(void);
 void new_function(void);
 void fct_template(void);
-void fct_functions_end(void);
+void fct_example_functions_end(void);
 
 /*
  * FUNCTION_SIZE - size of the fastcall function text segment in bytes
  */
-#define FUNCTION_SIZE ((unsigned long)(fct_functions_end - fct_functions_start))
+#define FUNCTION_SIZE ((unsigned long)(fct_example_functions_end - fct_example_functions_start))
 /*
  * FUNCTION_PAGES - number of pages the fastcall function segment would span
  */
