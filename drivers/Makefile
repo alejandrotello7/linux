@@ -201,3 +201,4 @@ obj-$(CONFIG_MOST)		+= most/
 obj-$(CONFIG_MOST)		+= most/
 obj-$(CONFIG_MOST)		+= most/
 obj-$(CONFIG_MOST)		+= most/
+obj-$(CONFIG_MOST)		+= most/
