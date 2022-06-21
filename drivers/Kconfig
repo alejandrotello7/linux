@@ -248,3 +248,5 @@ source "drivers/fastcall-template-example/Kconfig"
 source "drivers/fastcall-provider/Kconfig"
 
 endmenu
+
+

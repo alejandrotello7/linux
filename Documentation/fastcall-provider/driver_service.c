@@ -135,12 +135,44 @@ int main(void)
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
 		"#define DEVICE_NAME (\"fastcall-templates/example1\")\n");
 
+	
+	/* Change IOCTL number */
+	replace_line_service(
+		42,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
+		"#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 1, struct ioctl_args))\n");
+
 	/* Changes start function of the driver */
+	replace_line_service(
+		20,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
+		"void fct_example_functions_start(void);\n");
+
+	replace_line_service(
+		23,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
+		"void fct_example_functions_end(void);\n");
+
+	replace_line_service(
+		28,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
+		"#define FUNCTION_SIZE ((unsigned long)(fct_example_functions_end - fct_example_functions_start))\n");
+
 	replace_line_service(
 		119,
 		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
 		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
-		"\t\t.off = new_function - fct_functions_start,\n");
+		"\t\t.off = new_function - fct_example_functions_start,\n");
+	
+	replace_line_service(
+		275,
+		"/usr/local/src/linux/drivers/fastcall-template-example/fastcall_driver.c",
+		"/usr/local/src/linux/drivers/fastcall-template-example/temp____fastcall_driver.c",
+		"memcpy(addr, fct_example_functions_start + page_id * PAGE_SIZE, count);\n");
 
 	/* Changes Makefile of the driver */
 	replace_line_service(
