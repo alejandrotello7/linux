@@ -12,7 +12,7 @@
 #include <linux/slab.h>
 #include <asm/fastcall_module.h>
 
-MODULE_DESCRIPTION("A template for fastcall-based drivers.");
+MODULE_DESCRIPTION("A template for fastcall-provider-based drivers.");
 
 /*
  * Function labels from fastcall_functions.S .
