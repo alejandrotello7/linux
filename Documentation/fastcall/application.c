@@ -24,11 +24,11 @@
 #define FCE_IOCTL_SUMMER (FCE_IOCTL(8))
 #define FCE_IOCTL_PROVIDER (FCE_IOCTL(9))
 #define FCE_IOCTL_NOP_MACHINE (FCE_IOCTL(10))
-#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 0, struct ioctl_args))
+#define IOCTL_TEMPLATE (_IOR(IOCTL_TYPE, 1, struct ioctl_args))
 
 
 //#define DEVICE_PATH ("/dev/fastcall-examples")
-#define DEVICE_PATH ("/dev/fastcall-template")
+#define DEVICE_PATH ("/dev/fastcall-templates/example1")
 
 #define MAGIC (10)
 
@@ -63,7 +63,7 @@ int main(void)
 	int returnValue = 0;
   printf("Address value: %lu\n", args.fn_addr);
 
-	returnValue = syscall(SYS_FASTCALL, args.index,10,2);
+	returnValue = syscall(SYS_FASTCALL, args.index,10);
 	printf("Return value: %d\n", returnValue);
 
 	// Perform the actual fastcall.
